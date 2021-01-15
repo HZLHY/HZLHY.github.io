@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>first on My New Hugo Site</title>
+    <link>http://example.org/tags/first/</link>
+    <description>Recent content in first on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 24 Nov 2020 14:19:38 +0800</lastBuildDate><atom:link href="http://example.org/tags/first/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Welcome</title>
+      <link>http://example.org/post/welcome/</link>
+      <pubDate>Tue, 24 Nov 2020 14:19:38 +0800</pubDate>
+      
+      <guid>http://example.org/post/welcome/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
