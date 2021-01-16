@@ -3,7 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://hzlhy.github.io/categories/</loc>
+    <lastmod>2021-01-16T01:33:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hzlhy.github.io/post/hugo_use/</loc>
+    <lastmod>2021-01-16T01:33:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hzlhy.github.io/tags/learing/</loc>
+    <lastmod>2021-01-16T01:33:06+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://hzlhy.github.io/</loc>
+    <lastmod>2021-01-16T01:33:06+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hzlhy.github.io/categories/other/</loc>
     <lastmod>2021-01-16T01:33:06+08:00</lastmod>
   </url>
   
@@ -13,7 +33,7 @@
   </url>
   
   <url>
-    <loc>https://hzlhy.github.io/post/test/</loc>
+    <loc>https://hzlhy.github.io/tags/</loc>
     <lastmod>2021-01-16T01:33:06+08:00</lastmod>
   </url>
   
@@ -23,17 +43,7 @@
   </url>
   
   <url>
-    <loc>https://hzlhy.github.io/categories/</loc>
-    <lastmod>2021-01-16T00:29:32+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://hzlhy.github.io/categories/ctf/</loc>
-    <lastmod>2021-01-16T00:29:32+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://hzlhy.github.io/tags/</loc>
     <lastmod>2021-01-16T00:29:32+08:00</lastmod>
   </url>
   

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.78.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>hugo使用 &middot; LHY&#39;bolgs</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-08 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://hzlhy.github.io/"><h1>LHY&#39;bolgs</h1></a>
+      <p class="lead">
+       小白的初尝试 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://hzlhy.github.io/">Home</a> </li>
+        <li><a href="/about/"> About me </a></li><li><a href="https://hzlhy.github.io/categories/"> Categories </a></li><li><a href="https://hzlhy.github.io/tags/"> Tags </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>hugo使用</h1>
+  <time datetime=2021-01-16T01:33:06&#43;0800 class="post-date">Sat, Jan 16, 2021</time>
+  <h2 id="hugo使用方法初步">hugo使用方法（初步）</h2>
+<h3 id="一创建站点">一、创建站点</h3>
+<p>使用 <code>hugo new site &quot;文件夹名字&quot;</code>，如 <code>hugo new site blogs</code> 就会创建一个名为blogs的文件夹，包含archetypes、content等文件夹。</p>
+<h3 id="二创建与保存文章">二、创建与保存文章</h3>
+<p>1.使用 <code>hugo new xxx.md</code> 创建一个名为 xxx.md 的文件，这样会直接将该文件创建于content文件夹中；
+使用 <code>hugo new post/xxx.md</code> 会在 content 中的post文件夹中创建 xxx.md 文件。（注：在编辑文章时一定要把draft: true ——&gt;draft: false,这样在生成时才会把文章生成到post文件夹中）
+2.在完成创建后，运行 hugo 命令会生成相应的文件到public文件夹中；运行 hugo server 命令可以在本地 localhost:1313 查看变化（调试）。
+3.完成修改后需要上传到GitHub仓库，把 public 文件夹里面的内容全部复制到本地仓库中,然后通过GitHub desktop同步到GitHub，如下图：</p>
+<h3 id="三标签与目录侧栏">三、标签与目录、侧栏</h3>
+<p>1.侧栏显示文章，在创建文章时把 menu: &ldquo;main&rdquo; 加上即可。
+2.在创建文章时把 Categories: &ldquo;CTF&rdquo;\Tags: &ldquo;web&rdquo; 补上可以为文章标注目录和标签，如上述例子就表示该文章为CTF目录中标签为web的文章。
+3.在侧栏显示目录与标签或者友情链接，需要在 config.toml 中修改，如下列语句：</p>
+<pre><code>[Menus]
+     main = [
+      {Name = &quot;Categories&quot;, URL = &quot;https://hzlhy.github.io/categories/&quot;},
+      {Name = &quot;Tags&quot;, URL = &quot;https://hzlhy.github.io/tags/&quot;}
+  ]
+</code></pre><p><img src="hugo_use_repository.png" alt="">
+<img src="hugo_use_img1.jpg" alt=""></p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>
