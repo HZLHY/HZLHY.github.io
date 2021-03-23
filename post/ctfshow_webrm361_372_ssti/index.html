@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Tags &middot; LHY&#39;bolgs</title>
+  <title>Ctfshow_webrm361_372_SSTI &middot; LHY&#39;bolgs</title>
   <meta name="description" content="" />
 
   
@@ -24,7 +24,6 @@
   <link rel="shortcut icon" href="/favicon.png">
 
   
-  <link href="https://hzlhy.github.io/tags/index.xml" rel="alternate" type="application/rss+xml" title="LHY'bolgs" />
   
 </head>
 
@@ -50,17 +49,29 @@
 </aside>
 
     <main class="content container">
-    <ul class="posts">
-<li>
-    <span><a href="https://hzlhy.github.io/tags/buuctf_web/">BUUCTF_web</a> <time class="pull-right post-list" datetime="2021-03-20T18:49:26&#43;0800">Sat, Mar 20, 2021</time></span>
-  </li><li>
-    <span><a href="https://hzlhy.github.io/tags/ctfshow_webrm/">ctfshow_webrm</a> <time class="pull-right post-list" datetime="2021-03-18T09:41:29&#43;0800">Thu, Mar 18, 2021</time></span>
-  </li><li>
-    <span><a href="https://hzlhy.github.io/tags/learing/">learing</a> <time class="pull-right post-list" datetime="2021-01-16T01:33:06&#43;0800">Sat, Jan 16, 2021</time></span>
-  </li><li>
-    <span><a href="https://hzlhy.github.io/tags/web/">web</a> <time class="pull-right post-list" datetime="2021-01-16T00:29:32&#43;0800">Sat, Jan 16, 2021</time></span>
-  </li>
-</ul>
+    <div class="post">
+  <h1>Ctfshow_webrm361_372_SSTI</h1>
+  <time datetime=2021-03-18T09:41:29&#43;0800 class="post-date">Thu, Mar 18, 2021</time>
+  <h2 id="ctfshow-web入门ssti">ctfshow web入门SSTI</h2>
+<p>常见的继承关系的方法有以下三种：</p>
+<p>1.<code>__base__</code>：对象的一个基类，一般情况下是object</p>
+<p>2.<code>__mro__</code>：获取对象的基类，只是这时会显示出整个继承链的关系，是一个列表，object</p>
+<p>在最底层所以在列表中的最后，通过<code>__mro__[-1]</code>可以获取到</p>
+<p>3.<code>__subclasses__</code>：继承此对象的子类，返回一个列表</p>
+<p>基本过程：从变量-&gt;对象-&gt;基类-&gt;子类遍历-&gt;全局变量</p>
+<p>4.<code>__class__</code>：返回调用的参数类型</p>
+<p>5.<code>__bases__</code>：返回类型列表</p>
+<p>6.<code>__globals__</code>：以字典类型返回当前的全部全局变量</p>
+<p>7.<code>__init__</code>：用传入的参数来初始化实例，使用<code>__globals__</code>以字典返回内建模块</p>
+<p>同时，也要考虑web的框架及模板引擎</p>
+<p>一般SSTI题考察的web框架有：</p>
+<p>1.flask</p>
+<p>2.Tornado</p>
+<p>3.Django</p>
+
+</div>
+
+
     </main>
 
     

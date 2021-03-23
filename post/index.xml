@@ -6,7 +6,52 @@
     <description>Recent content in Posts on LHY&#39;bolgs</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Feb 2021 22:44:08 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Mar 2021 18:49:26 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BUUCTF_warmup&amp;Ping Ping Ping</title>
+      <link>https://hzlhy.github.io/post/buuctf_warmup/</link>
+      <pubDate>Sat, 20 Mar 2021 18:49:26 +0800</pubDate>
+      
+      <guid>https://hzlhy.github.io/post/buuctf_warmup/</guid>
+      <description>BUUCTF_warmup 查看源码发现source.php，访问发现是代码审计
+1.PHP mb_substr()函数：
+&amp;lt;?php echo mb_substr(&amp;quot;菜鸟教程&amp;quot;, 0, 2); // 输出：菜鸟 ?&amp;gt;
+返回字符串的一部分
+2.PHP mb_strpos()
+查找字符串在另一个字符串中首次出现的位置
+3.PHP $_REQUEST是用于收集HTML表单提交的数据，PHP $_REQUEST属于PHP的超级全局变量
+4.payload:include source.php(或hint.php)?/../../../../ffffllllaaaagggg
+include $_REQUEST[&#39;file&#39;];中使用了include,为什么路径这样写，是因为我们的参数是有/../../../../这样的路径，所以符合最后一段话如果定义了路径，就会忽略/前的字符串而去找/../../../../ffffllllaaaagggg这个文件，php中include的用法
+Ping Ping Ping 题目给了/?ip=后面应该是我们想要执行的语句。先ping一下:127.0.0.1;ls发现可以执行语句；
+试试payload1:cat flag.php发现空格被过滤了；
+####　空格过滤
+  ${IFS}替换 $IFS$1替换 ${IFS替换 %20替换 &amp;lt;和&amp;lt;&amp;gt;重定向符替换 %09替换   一个个地试，发现{}被过滤了，同时flag也被过滤了，这时去看看index.php发现源码出来了；
+/?ip= |\&amp;#39;|\&amp;#34;|\\|\(|\)|\[|\]|\{|\}/&amp;#34;, $ip, $match)){ echo preg_match(&amp;#34;/\&amp;amp;|\/|\?|\*|\&amp;lt;|[\x{00}-\x{20}]|\&amp;gt;|\&amp;#39;|\&amp;#34;|\\|\(|\)|\[|\]|\{|\}/&amp;#34;, $ip, $match); die(&amp;#34;fxck your symbol!&amp;#34;); } else if(preg_match(&amp;#34;/ /&amp;#34;, $ip)){ die(&amp;#34;fxck your space!&amp;#34;); } else if(preg_match(&amp;#34;/bash/&amp;#34;, $ip)){ die(&amp;#34;fxck your bash!&amp;#34;); } else if(preg_match(&amp;#34;/.</description>
+    </item>
+    
+    <item>
+      <title>Ctfshow_webrm361_372_SSTI</title>
+      <link>https://hzlhy.github.io/post/ctfshow_webrm361_372_ssti/</link>
+      <pubDate>Thu, 18 Mar 2021 09:41:29 +0800</pubDate>
+      
+      <guid>https://hzlhy.github.io/post/ctfshow_webrm361_372_ssti/</guid>
+      <description>ctfshow web入门SSTI 常见的继承关系的方法有以下三种：
+1.__base__：对象的一个基类，一般情况下是object
+2.__mro__：获取对象的基类，只是这时会显示出整个继承链的关系，是一个列表，object
+在最底层所以在列表中的最后，通过__mro__[-1]可以获取到
+3.__subclasses__：继承此对象的子类，返回一个列表
+基本过程：从变量-&amp;gt;对象-&amp;gt;基类-&amp;gt;子类遍历-&amp;gt;全局变量
+4.__class__：返回调用的参数类型
+5.__bases__：返回类型列表
+6.__globals__：以字典类型返回当前的全部全局变量
+7.__init__：用传入的参数来初始化实例，使用__globals__以字典返回内建模块
+同时，也要考虑web的框架及模板引擎
+一般SSTI题考察的web框架有：
+1.flask
+2.Tornado
+3.Django</description>
+    </item>
+    
     <item>
       <title>Ctfshow_webrm29_124</title>
       <link>https://hzlhy.github.io/post/ctfshow_webrm29_124/</link>

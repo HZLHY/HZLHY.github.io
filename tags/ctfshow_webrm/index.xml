@@ -6,7 +6,30 @@
     <description>Recent content in ctfshow_webrm on LHY&#39;bolgs</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Feb 2021 22:44:08 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/tags/ctfshow_webrm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Mar 2021 09:41:29 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/tags/ctfshow_webrm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ctfshow_webrm361_372_SSTI</title>
+      <link>https://hzlhy.github.io/post/ctfshow_webrm361_372_ssti/</link>
+      <pubDate>Thu, 18 Mar 2021 09:41:29 +0800</pubDate>
+      
+      <guid>https://hzlhy.github.io/post/ctfshow_webrm361_372_ssti/</guid>
+      <description>ctfshow web入门SSTI 常见的继承关系的方法有以下三种：
+1.__base__：对象的一个基类，一般情况下是object
+2.__mro__：获取对象的基类，只是这时会显示出整个继承链的关系，是一个列表，object
+在最底层所以在列表中的最后，通过__mro__[-1]可以获取到
+3.__subclasses__：继承此对象的子类，返回一个列表
+基本过程：从变量-&amp;gt;对象-&amp;gt;基类-&amp;gt;子类遍历-&amp;gt;全局变量
+4.__class__：返回调用的参数类型
+5.__bases__：返回类型列表
+6.__globals__：以字典类型返回当前的全部全局变量
+7.__init__：用传入的参数来初始化实例，使用__globals__以字典返回内建模块
+同时，也要考虑web的框架及模板引擎
+一般SSTI题考察的web框架有：
+1.flask
+2.Tornado
+3.Django</description>
+    </item>
+    
     <item>
       <title>Ctfshow_webrm29_124</title>
       <link>https://hzlhy.github.io/post/ctfshow_webrm29_124/</link>
