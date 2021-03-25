@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>BUUCTF_WEB on LHY&#39;s blogs</title>
-    <link>http://example.org/tags/buuctf_web/</link>
+    <link>https://hzlhy.github.io/tags/buuctf_web/</link>
     <description>Recent content in BUUCTF_WEB on LHY&#39;s blogs</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Mar 2021 15:04:29 +0800</lastBuildDate><atom:link href="http://example.org/tags/buuctf_web/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Mar 2021 15:04:29 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/tags/buuctf_web/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>BUUCTF_WEB_part0</title>
-      <link>http://example.org/post/buuctf_web_part0/</link>
+      <link>https://hzlhy.github.io/post/buuctf_web_part0/</link>
       <pubDate>Thu, 25 Mar 2021 15:04:29 +0800</pubDate>
       
-      <guid>http://example.org/post/buuctf_web_part0/</guid>
+      <guid>https://hzlhy.github.io/post/buuctf_web_part0/</guid>
       <description>1.[HCTF]BUUCTF_warmup 查看源码发现source.php，访问发现是代码审计
 1.PHP mb_substr()函数：
 &amp;lt;?php echo mb_substr(&amp;quot;菜鸟教程&amp;quot;, 0, 2); // 输出：菜鸟 ?&amp;gt;

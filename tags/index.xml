@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on LHY&#39;s blogs</title>
-    <link>http://example.org/tags/</link>
+    <link>https://hzlhy.github.io/tags/</link>
     <description>Recent content in Tags on LHY&#39;s blogs</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Mar 2021 15:04:29 +0800</lastBuildDate><atom:link href="http://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Mar 2021 15:04:29 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>BUUCTF_WEB</title>
-      <link>http://example.org/tags/buuctf_web/</link>
+      <link>https://hzlhy.github.io/tags/buuctf_web/</link>
       <pubDate>Thu, 25 Mar 2021 15:04:29 +0800</pubDate>
       
-      <guid>http://example.org/tags/buuctf_web/</guid>
+      <guid>https://hzlhy.github.io/tags/buuctf_web/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CTFshow_WEBrm</title>
-      <link>http://example.org/tags/ctfshow_webrm/</link>
+      <link>https://hzlhy.github.io/tags/ctfshow_webrm/</link>
       <pubDate>Thu, 25 Mar 2021 15:03:34 +0800</pubDate>
       
-      <guid>http://example.org/tags/ctfshow_webrm/</guid>
+      <guid>https://hzlhy.github.io/tags/ctfshow_webrm/</guid>
       <description></description>
     </item>
     
