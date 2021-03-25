@@ -1,58 +1,136 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
-<head>
-  <link href="https://gmpg.org/xfn/11" rel="profile">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<html lang="en" dir="ltr" itemscope itemtype="http://schema.org/Article">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <title>CTFshow_WEBrm361_372_SSTI</title>
+  <meta name="author" content="" />
+  <meta name="description"
+        content="ctfshow web入门SSTI
+常见的继承关系的方法有以下三种：
+1.__base__：对象的一个基类，一般情况下是object
+2.__mro__：获取对象的基类，只是这时会显示出整个继承链的关系，是一个列表，object
+在最底层所以在列表中的最后，通过__mro__[-1]可以获取到
+3.__subclasses__：继承此对象的子类，返回一个列表
+基本过程：从变量-&gt;对..."/>
+
+
   <meta name="generator" content="Hugo 0.78.2" />
 
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Ctfshow_webrm361_372_SSTI &middot; LHY&#39;bolgs</title>
-  <meta name="description" content="" />
-
-  
-  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/print.css" media="print">
-  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/poole.css">
-  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/syntax.css">
-  <link type="text/css" rel="stylesheet" href="https://hzlhy.github.io/css/hyde.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
-
-
-  
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="/favicon.png">
+  <meta itemprop="name" content="CTFshow_WEBrm361_372_SSTI"/>
+  <meta itemprop="description"
+        content="ctfshow web入门SSTI
+常见的继承关系的方法有以下三种：
+1.__base__：对象的一个基类，一般情况下是object
+2.__mro__：获取对象的基类，只是这时会显示出整个继承链的关系，是一个列表，object
+在最底层所以在列表中的最后，通过__mro__[-1]可以获取到
+3.__subclasses__：继承此对象的子类，返回一个列表
+基本过程：从变量-&gt;对..."/>
+  <meta itemprop="image"
+        content=""/>
 
   
-  
-</head>
+  <meta property="og:title" content="CTFshow_WEBrm361_372_SSTI"/>
+  <meta property="og:type"
+        content="article"/>
+  <meta property="og:url" content="http://example.org/post/ctfshow_webrm361_372_ssti/"/>
+  <meta property="og:image"
+        content=""/>
+  <meta property="og:description"
+        content="ctfshow web入门SSTI
+常见的继承关系的方法有以下三种：
+1.__base__：对象的一个基类，一般情况下是object
+2.__mro__：获取对象的基类，只是这时会显示出整个继承链的关系，是一个列表，object
+在最底层所以在列表中的最后，通过__mro__[-1]可以获取到
+3.__subclasses__：继承此对象的子类，返回一个列表
+基本过程：从变量-&gt;对..."/>
+  <meta property="og:site_name" content="LHY&#39;s blogs"/>
+  <meta property="article:published_time"
+        content="2021-03-25T15:03:34&#43;08:00"/>
+  <meta property="article:section" content="post"/>
+  <meta property="article:tag" content="CTFshow_WEBrm"/>
 
-  <body class="theme-base-00 ">
-  <aside class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-      <a href="https://hzlhy.github.io/"><h1>LHY&#39;bolgs</h1></a>
-      <p class="lead">
-       小白的初尝试 
-      </p>
+  
+  
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:site"
+        content=""/>
+  <meta name="twitter:title" content="CTFshow_WEBrm361_372_SSTI"/>
+  <meta name="twitter:description"
+        content="ctfshow web入门SSTI
+常见的继承关系的方法有以下三种：
+1.__base__：对象的一个基类，一般情况下是object
+2.__mro__：获取对象的基类，只是这时会显示出整个继承链的关系，是一个列表，object
+在最底层所以在列表中的最后，通过__mro__[-1]可以获取到
+3.__subclasses__：继承此对象的子类，返回一个列表
+基本过程：从变量-&gt;对..."/>
+  <meta name="twitter:creator"
+        content=""/>
+  <meta name="twitter:image:src"
+        content=""/>
+
+  
+
+  
+  <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
+  
+  
+
+  
+  </head>
+
+
+  <body style="min-height:100vh;display:flex;flex-direction:column">
+
+    <nav class="navbar has-shadow is-white"
+     role="navigation" aria-label="main navigation">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <div class="title is-4">&nbsp;LHY&#39;s blogs</div>
+      </a>
+
+      
+      <label role="button" class="navbar-burger has-text-dark"
+             aria-label="menu" aria-expanded="false"
+             for="navbar-burger-state">
+             
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </label>
     </div>
 
-    <nav>
-      <ul class="sidebar-nav">
-        <li><a href="https://hzlhy.github.io/">Home</a> </li>
-        <li><a href="/about/"> About me </a></li><li><a href="https://hzlhy.github.io/categories/"> Categories </a></li><li><a href="https://hzlhy.github.io/tags/"> Tags </a></li>
-      </ul>
-    </nav>
+    
+    <input type="checkbox" id="navbar-burger-state"/>
+                          
 
-    <p>&copy; 2021. All rights reserved. </p>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+      </div>
+    </div>
+
   </div>
-</aside>
+</nav>
 
-    <main class="content container">
-    <div class="post">
-  <h1>Ctfshow_webrm361_372_SSTI</h1>
-  <time datetime=2021-03-18T09:41:29&#43;0800 class="post-date">Thu, Mar 18, 2021</time>
-  <h2 id="ctfshow-web入门ssti">ctfshow web入门SSTI</h2>
+
+    <section class="section" style="flex:1">
+
+      
+      <div class="container">
+        <h1 class="title">CTFshow_WEBrm361_372_SSTI</h1>
+        <p class="subtitle">Mar 25, 2021</p>
+
+        
+
+        
+        <div class="content">
+          <h2 id="ctfshow-web入门ssti">ctfshow web入门SSTI</h2>
 <p>常见的继承关系的方法有以下三种：</p>
 <p>1.<code>__base__</code>：对象的一个基类，一般情况下是object</p>
 <p>2.<code>__mro__</code>：获取对象的基类，只是这时会显示出整个继承链的关系，是一个列表，object</p>
@@ -69,13 +147,160 @@
 <p>2.Tornado</p>
 <p>3.Django</p>
 
+        </div>
+
+        
+
+        
+<br>
+<div class="heading">Categories:</div>
+<div class="field is-grouped is-grouped-multiline">
+  <div class="control">
+    <a href="/categories/ctf">
+      <span class="tag">C T F</span>
+    </a>
+  </div>
+</div>
+<div class="heading">Tags:</div>
+<div class="field is-grouped is-grouped-multiline">
+  <div class="control">
+    <a href="/tags/ctfshow_webrm">
+      <span class="tag">C T Fshow W E Brm</span>
+    </a>
+  </div>
+</div>
+
+      </div>
+
+    </section>
+
+    <section class="section">
+      
+      <div class="container">
+  <div class="level">
+
+    <div class="level-left">
+      <div class="level-item">
+        <p class="control has-addons">
+          <a class="button" href="http://example.org/post/buuctf_web_part0/">
+            <span class="icon is-small"><i class="fas fa-chevron-left"></i></span>
+            <span class="is-hidden-touch is-hidden-desktop-only">
+              BUUCTF_WEB_part0
+            </span>
+            <span class="is-hidden-touch is-hidden-widescreen">
+              BUUCTF_WEB_part0
+            </span>
+            <span class="is-hidden-mobile is-hidden-desktop">
+              BUUCTF_WEB_part0
+            </span>
+            <span class="is-hidden-tablet">
+              BUUCTF_WEB_part0
+            </span>
+            
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="level-right">
+      <div class="level-item">
+        <p class="control has-addons">
+          <a class="button" href="http://example.org/post/ctfshow_webrm29_124/">
+            <span class="is-hidden-touch is-hidden-desktop-only">
+              CTFshow_WEBrm29_124
+            </span>
+            <span class="is-hidden-touch is-hidden-widescreen">
+              CTFshow_WEBrm29_124
+            </span>
+            <span class="is-hidden-mobile is-hidden-desktop">
+              CTFshow_WEBrm29_124
+            </span>
+            <span class="is-hidden-tablet">
+              CTFshow_WEBrm29_124
+            </span>
+            
+            <span class="icon is-small"><i class="fas fa-chevron-right"></i></span>
+          </a>
+        </p>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 
-    </main>
+      <br>
 
-    
       
-    
+      
+
+      <br>
+
+      
+      
+<div class="container">
+  <nav class="panel">
+    <p class="panel-heading">Related</p>
+    <a class="panel-block" href="http://example.org/post/ctfshow_webrm29_124/">
+      <span class="icon is-small"><i class="fas fa-chevron-right"></i></span>
+      <span>&nbsp;</span>
+      <span>CTFshow_WEBrm29_124&nbsp;
+      <div class="tag">C T Fshow W E Brm</div>
+      </span>
+    </a>
+  </nav>
+</div>
+
+    </section>
+
+    <footer class="footer">
+  <div class="container">
+    <nav class="level">
+
+      <div class="level-item has-text-centered">
+        <a href="http://example.org/post/" class="heading">
+          <span class="header">Posts</span>
+        </a>
+      </div>
+
+    </nav>
+
+    <nav class="level">
+
+      <div class="level-left has-text-centered">
+        <div class="level-item">
+          <form class="control has-icons has-icons-right" method="get"
+                action="https://duckduckgo.com">
+            <input class="input" type="text" name="q" maxlength="255"
+                   placeholder="Search">
+            <input class="input" type="hidden" name="sites"
+                   value="http://example.org/">
+            <span class="icon is-small is-right"><i class="fas fa-search"></i></span>
+          </form>
+        </div>
+      </div>
+
+      <div class="level-right has-text-centered">
+        <div class="level-item">
+
+          <a class="button" href="/">
+            <span class="icon"><i class="fas fa-home"></i></span>
+          </a> &nbsp;
+
+          
+
+          <a class="button"
+             href="">
+            <span class="icon"><i class="fas fa-rss"></i></span>
+          </a>
+
+        </div>
+      </div>
+
+    </nav>
+  </div>
+</footer>
+
   </body>
+
 </html>
