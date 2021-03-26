@@ -6,11 +6,20 @@
     <description>Recent content in Tags on LHY&#39;s blogs</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Mar 2021 15:04:29 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 26 Mar 2021 15:32:48 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Learning</title>
+      <link>https://hzlhy.github.io/tags/learning/</link>
+      <pubDate>Fri, 26 Mar 2021 15:32:48 +0800</pubDate>
+      
+      <guid>https://hzlhy.github.io/tags/learning/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>BUUCTF_WEB</title>
       <link>https://hzlhy.github.io/tags/buuctf_web/</link>
-      <pubDate>Thu, 25 Mar 2021 15:04:29 +0800</pubDate>
+      <pubDate>Fri, 26 Mar 2021 15:32:23 +0800</pubDate>
       
       <guid>https://hzlhy.github.io/tags/buuctf_web/</guid>
       <description></description>

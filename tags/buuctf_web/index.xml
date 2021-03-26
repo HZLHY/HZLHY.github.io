@@ -6,7 +6,27 @@
     <description>Recent content in BUUCTF_WEB on LHY&#39;s blogs</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Mar 2021 15:04:29 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/tags/buuctf_web/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 26 Mar 2021 15:32:23 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/tags/buuctf_web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BUUCTF_WEB_part1</title>
+      <link>https://hzlhy.github.io/post/buuctf_web_part1/</link>
+      <pubDate>Fri, 26 Mar 2021 15:32:23 +0800</pubDate>
+      
+      <guid>https://hzlhy.github.io/post/buuctf_web_part1/</guid>
+      <description>1.[BJDCTF2020]Easy MD5 0x0 一打开发现是一个查询页面，按F12，看到响应头Hint: select * from &#39;admin&#39; where password=md5($pass,true)初步以为是sql注入，试了一下（因为太菜+懒，也没怎么试就去找wp了……）；发现md5($pass,true)是一个知识点来的，可以参考这篇大佬的文章：大佬文章
+语法：
+md5(string,raw)
+   参数 描述     string 必需。需要计算的字符串。   raw 可选。1.默认不写为FALSE。32位16进制的字符串；2.TRUE。16位原始二进制格式的字符串。     ；content: ffifdyop
+hex: 276f722736c95d99e921722cf9ed621c
+raw: &amp;lsquo;or&#39;6\xc9]\x99\xe9!r,\xf9\xedb\x1c
+string: &amp;lsquo;or&#39;6]!r,b
+ 注意：当raw为true时，这里所说的原始二进制并不是普通的二进制0，1，而是像上面表里raw那样的；
+（部分字符会乱码）
+题目中 &#39;&#39;or&#39;6�]��!r,��b&#39;会返回true，是因为在MySQL里面，在用作布尔型判断时，以1开头的字符串会被当做整型数。要注意的是这种情况是必须要有单引号括起来的，如password=‘xxx’ or ‘1xxxxxxxxx’，不只是1开头，只要是数字开头都可以。
+0x1 回到题目，照上面所说的，输入 ffifdyop提交查询出现一个新的页面，查看源码
+&amp;lt;!-- $a = $GET[&amp;#39;a&amp;#39;]; $b = $_GET[&amp;#39;b&amp;#39;]; if($a != $b &amp;amp;&amp;amp; md5($a) == md5($b)){ // wow, glzjin wants a girl friend. --&amp;gt; ==老朋友了，同时要使这两个的md5相等，这里抄了别人的wp，有两种方法：</description>
+    </item>
+    
     <item>
       <title>BUUCTF_WEB_part0</title>
       <link>https://hzlhy.github.io/post/buuctf_web_part0/</link>

@@ -3,37 +3,57 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://hzlhy.github.io/tags/buuctf_web/</loc>
-    <lastmod>2021-03-25T15:04:29+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://hzlhy.github.io/post/buuctf_web_part0/</loc>
-    <lastmod>2021-03-25T15:04:29+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://hzlhy.github.io/categories/</loc>
-    <lastmod>2021-03-25T15:04:29+08:00</lastmod>
+    <lastmod>2021-03-26T15:32:48+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hzlhy.github.io/categories/ctf/</loc>
-    <lastmod>2021-03-25T15:04:29+08:00</lastmod>
+    <loc>https://hzlhy.github.io/post/hugo_use/</loc>
+    <lastmod>2021-03-26T15:32:48+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hzlhy.github.io/tags/learning/</loc>
+    <lastmod>2021-03-26T15:32:48+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hzlhy.github.io/</loc>
-    <lastmod>2021-03-25T15:04:29+08:00</lastmod>
+    <lastmod>2021-03-26T15:32:48+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hzlhy.github.io/categories/other/</loc>
+    <lastmod>2021-03-26T15:32:48+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hzlhy.github.io/post/</loc>
-    <lastmod>2021-03-25T15:04:29+08:00</lastmod>
+    <lastmod>2021-03-26T15:32:48+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://hzlhy.github.io/tags/</loc>
+    <lastmod>2021-03-26T15:32:48+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hzlhy.github.io/tags/buuctf_web/</loc>
+    <lastmod>2021-03-26T15:32:23+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hzlhy.github.io/post/buuctf_web_part1/</loc>
+    <lastmod>2021-03-26T15:32:23+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hzlhy.github.io/categories/ctf/</loc>
+    <lastmod>2021-03-26T15:32:23+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hzlhy.github.io/post/buuctf_web_part0/</loc>
     <lastmod>2021-03-25T15:04:29+08:00</lastmod>
   </url>
   

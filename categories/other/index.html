@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-  <title>CTFshow_WEBrm</title>
+  <title>other</title>
   <meta name="author" content="" />
   <meta name="description"
         content=""/>
@@ -15,30 +15,30 @@
   <meta name="generator" content="Hugo 0.78.2" />
 
   
-  <meta itemprop="name" content="CTFshow_WEBrm"/>
+  <meta itemprop="name" content="other"/>
   <meta itemprop="description"
         content=""/>
   <meta itemprop="image"
         content=""/>
 
   
-  <meta property="og:title" content="CTFshow_WEBrm"/>
+  <meta property="og:title" content="other"/>
   <meta property="og:type"
         content="website"/>
-  <meta property="og:url" content="https://hzlhy.github.io/tags/ctfshow_webrm/"/>
+  <meta property="og:url" content="https://hzlhy.github.io/categories/other/"/>
   <meta property="og:image"
         content=""/>
   <meta property="og:description"
         content=""/>
   <meta property="og:site_name" content="LHY&#39;s blogs"/>
-  <meta property="article:section" content="tags"/>
+  <meta property="article:section" content="categories"/>
 
   
   
   <meta name="twitter:card" content="summary"/>
   <meta name="twitter:site"
         content=""/>
-  <meta name="twitter:title" content="CTFshow_WEBrm"/>
+  <meta name="twitter:title" content="other"/>
   <meta name="twitter:description"
         content=""/>
   <meta name="twitter:creator"
@@ -47,7 +47,7 @@
         content=""/>
 
   
-    <link rel="alternate" type="application/rss+xml" href="https://hzlhy.github.io/tags/ctfshow_webrm/index.xml" title="LHY's blogs" />
+    <link rel="alternate" type="application/rss+xml" href="https://hzlhy.github.io/categories/other/index.xml" title="LHY's blogs" />
 
   
   <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
@@ -100,61 +100,23 @@
 
       
       <div class="container" style="min-height:56vh">
-        <h1 class="title">Tag: CTFshow_WEBrm</h1>
+        <h1 class="title">Category: other</h1>
           <article class="media">
   <div class="media-content">
 
-    <p class="title is-4"><a href="https://hzlhy.github.io/post/ctfshow_webrm361_372_ssti/">CTFshow_WEBrm361_372_SSTI</a></p>
+    <p class="title is-4"><a href="https://hzlhy.github.io/post/hugo_use/">Hugo_use</a></p>
     <p class="subtitle is-6 mb-2">
       <span class="icon is-small"><i class="far fa-calendar-alt"></i></span>
-      <span class="mr-2">Mar 25, 2021</span>
+      <span class="mr-2">Mar 26, 2021</span>
       <span class="icon is-small"><i class="far fa-clock"></i></span>
       <span>1 min.</span>
     </p>
 
-    <div class="content">ctfshow web入门SSTI 常见的继承关系的方法有以下三种：
-1.__base__：对象的一个基类，一般情况下是object
-2.__mro__：获取对象的基类，只是这时会显示出整个继承链的关系，是一个列表，object
-在最底层所以在列表中的最后，通过__mro__[-1]可以获取到
-3.__subclasses__：继承此对象的子类，返回一个列表
-基本过程：从变量-&gt;对象-&gt;基类-&gt;子类遍历-&gt;全局变量
-4.__class__：返回调用的参数类型
-5.__bases__：返回类型列表
-6.__globals__：以字典类型返回当前的全部全局变量
-7.__init__：用传入的参数来初始化实例，使用__globals__以字典返回内建模块
-同时，也要考虑web的框架及模板引擎
-一般SSTI题考察的web框架有：
-1.flask
-2.Tornado
-3.Django</div>
-
-  </div>
-</article>
-
-          <article class="media">
-  <div class="media-content">
-
-    <p class="title is-4"><a href="https://hzlhy.github.io/post/ctfshow_webrm29_124/">CTFshow_WEBrm29_124</a></p>
-    <p class="subtitle is-6 mb-2">
-      <span class="icon is-small"><i class="far fa-calendar-alt"></i></span>
-      <span class="mr-2">Mar 25, 2021</span>
-      <span class="icon is-small"><i class="far fa-clock"></i></span>
-      <span>3 min.</span>
-    </p>
-
-    <div class="content">ctfshow web 入门命令执行 web29 &lt;?php error_reporting(0); if(isset($_GET[&#39;c&#39;])){ $c = $_GET[&#39;c&#39;]; if(!preg_match(&#34;/flag/i&#34;, $c)){ eval($c); } }else{ highlight_file(__FILE__); } 知识点：通配符； 看到有eval()执行函数 过滤了flag ，可以使用通配符进行绕过。所以payload为：c=system('cat f*');返回的flag进行了隐藏，右键查看源码即可。 也可以通过文件包含来解决，payload： 先传入?c=echo &quot;lhy&quot;;?&gt;ctfshow &lt;?php system('ls');看到有flag.php文件（前面需要echo &ldquo;lhy&rdquo;;?&gt;是因为传入c的时候表示一段代码的开始，?&gt;结束后开始执行后面的代码），接下来的为?c=echo &quot;lhy&quot;; ?&gt;ctfshow &lt;?php include($_GET['url']);&amp;url=php://filter/read=convert.base64-encode/resource=flag.php 补充：对于linux cat 和ca'&rsquo;t ca\t ca&quot;&ldquo;t效果是相同的，这样可以绕过字符的限制，如c=system('ca\t fla\g.php');
-web30 &lt;?php error_reporting(0); if(isset($_GET[&#39;c&#39;])){ $c = $_GET[&#39;c&#39;]; if(!preg_match(&#34;/flag|system|php/i&#34;, $c)){ eval($c); } }else{ highlight_file(__FILE__); } 知识点：反引号执行系统命令； 与29相比增加了对命令函数的过滤，命令执行函数有很多，如 system()
-passthru()
-exec()
-shell_exec()
-popen()
-proc_open()
-pcntl_exec()
-反引号
-只有system函数是有回显的，其它函数可以通过echo等显示，这里采用反引号绕过 payload1:c=echo `cat f*`;
-payload2:?c=passthru(&quot;cat f*&quot;);
-还可以采用文件包含：
-payload3:?c=echo &quot;lhy &quot;; include($_GET['url']); ?</div>
+    <div class="content">hugo使用方法（初步） 0x0 创建站点 使用 hugo new site &quot;文件夹名字&quot;，如 hugo new site blogs 就会创建一个名为blogs的文件夹，包含archetypes、content等文件夹。
+0x1 创建文章 1.使用 hugo new xxx.md 创建一个名为 xxx.md 的文件，这样会直接将该文件创建于content文件夹中； 使用 hugo new post/xxx.md 会在 content 中的post文件夹中创建 xxx.md 文件。（注：在编辑文章时一定要把draft: true ——&gt;draft: false,这样在生成时才会把文章生成到post文件夹中） 2.在完成创建后，运行 hugo 命令会生成相应的文件到public文件夹中；运行 hugo server 命令可以在本地 localhost:1313 查看变化（调试）或者（hugo server -t capsule -D）。 3.完成修改后需要上传到GitHub仓库，使用GitHub desktop上传文件即可。
+0x2 标签与目录，导航栏 1.由于更换了主题，标签与目录都是采用数组的方法才行；
+2.导航栏的的话，在content文件夹下面新建文件夹的话，会自动生成对应的导航链接。
+0x3 添加图片 添加图片可以是使用 ![]() 语法括号中间为图片路劲，这里把图片放在static文件夹中，例如现在放在static中的hugo_use_imgs中，会在public中生成hugo_use_imgs文件夹,引用路径为 ../../hugo_use_imgs/xxx.jpg</div>
 
   </div>
 </article>
@@ -177,7 +139,7 @@ payload3:?c=echo &quot;lhy &quot;; include($_GET['url']); ?</div>
 
   <ul class="pagination-list">
 
-    <li><a href="/tags/ctfshow_webrm/" class="pagination-link is-current">
+    <li><a href="/categories/other/" class="pagination-link is-current">
       1
     </a></li>
 
@@ -225,7 +187,7 @@ payload3:?c=echo &quot;lhy &quot;; include($_GET['url']); ?</div>
           
 
           <a class="button"
-             href="/tags/ctfshow_webrm/index.xml">
+             href="/categories/other/index.xml">
             <span class="icon"><i class="fas fa-rss"></i></span>
           </a>
 

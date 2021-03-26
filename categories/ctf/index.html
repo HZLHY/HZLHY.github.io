@@ -86,6 +86,9 @@
 
     <div class="navbar-menu">
       <div class="navbar-end">
+      <a href="/post/"
+         class="navbar-item
+                ">Posts</a>
       </div>
     </div>
 
@@ -98,6 +101,33 @@
       
       <div class="container" style="min-height:56vh">
         <h1 class="title">Category: CTF</h1>
+          <article class="media">
+  <div class="media-content">
+
+    <p class="title is-4"><a href="https://hzlhy.github.io/post/buuctf_web_part1/">BUUCTF_WEB_part1</a></p>
+    <p class="subtitle is-6 mb-2">
+      <span class="icon is-small"><i class="far fa-calendar-alt"></i></span>
+      <span class="mr-2">Mar 26, 2021</span>
+      <span class="icon is-small"><i class="far fa-clock"></i></span>
+      <span>1 min.</span>
+    </p>
+
+    <div class="content">1.[BJDCTF2020]Easy MD5 0x0 一打开发现是一个查询页面，按F12，看到响应头Hint: select * from 'admin' where password=md5($pass,true)初步以为是sql注入，试了一下（因为太菜+懒，也没怎么试就去找wp了……）；发现md5($pass,true)是一个知识点来的，可以参考这篇大佬的文章：大佬文章
+语法：
+md5(string,raw)
+   参数 描述     string 必需。需要计算的字符串。   raw 可选。1.默认不写为FALSE。32位16进制的字符串；2.TRUE。16位原始二进制格式的字符串。     ；content: ffifdyop
+hex: 276f722736c95d99e921722cf9ed621c
+raw: &lsquo;or'6\xc9]\x99\xe9!r,\xf9\xedb\x1c
+string: &lsquo;or'6]!r,b
+ 注意：当raw为true时，这里所说的原始二进制并不是普通的二进制0，1，而是像上面表里raw那样的；
+（部分字符会乱码）
+题目中 ''or'6�]��!r,��b'会返回true，是因为在MySQL里面，在用作布尔型判断时，以1开头的字符串会被当做整型数。要注意的是这种情况是必须要有单引号括起来的，如password=‘xxx’ or ‘1xxxxxxxxx’，不只是1开头，只要是数字开头都可以。
+0x1 回到题目，照上面所说的，输入 ffifdyop提交查询出现一个新的页面，查看源码
+&lt;!-- $a = $GET[&#39;a&#39;]; $b = $_GET[&#39;b&#39;]; if($a != $b &amp;&amp; md5($a) == md5($b)){ // wow, glzjin wants a girl friend. --&gt; ==老朋友了，同时要使这两个的md5相等，这里抄了别人的wp，有两种方法：</div>
+
+  </div>
+</article>
+
           <article class="media">
   <div class="media-content">
 
