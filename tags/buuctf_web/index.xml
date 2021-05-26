@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 26 Mar 2021 15:32:23 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/tags/buuctf_web/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>BUUCTF_WEB_part1</title>
-      <link>https://hzlhy.github.io/post/buuctf_web_part1/</link>
+      <link>https://hzlhy.github.io/ctf/buuctf_web_part1/</link>
       <pubDate>Fri, 26 Mar 2021 15:32:23 +0800</pubDate>
       
-      <guid>https://hzlhy.github.io/post/buuctf_web_part1/</guid>
+      <guid>https://hzlhy.github.io/ctf/buuctf_web_part1/</guid>
       <description>1.[BJDCTF2020]Easy MD5 0x0 一打开发现是一个查询页面，按F12，看到响应头Hint: select * from &#39;admin&#39; where password=md5($pass,true)初步以为是sql注入，试了一下（因为太菜+懒，也没怎么试就去找wp了……）；发现md5($pass,true)是一个知识点来的，可以参考这篇大佬的文章：大佬文章
 语法：
 md5(string,raw)
@@ -29,10 +29,10 @@ string: &amp;lsquo;or&#39;6]!r,b
     
     <item>
       <title>BUUCTF_WEB_part0</title>
-      <link>https://hzlhy.github.io/post/buuctf_web_part0/</link>
+      <link>https://hzlhy.github.io/ctf/buuctf_web_part0/</link>
       <pubDate>Thu, 25 Mar 2021 15:04:29 +0800</pubDate>
       
-      <guid>https://hzlhy.github.io/post/buuctf_web_part0/</guid>
+      <guid>https://hzlhy.github.io/ctf/buuctf_web_part0/</guid>
       <description>1.[HCTF]BUUCTF_warmup 查看源码发现source.php，访问发现是代码审计
 1.PHP mb_substr()函数：
 &amp;lt;?php echo mb_substr(&amp;quot;菜鸟教程&amp;quot;, 0, 2); // 输出：菜鸟 ?&amp;gt;
@@ -44,9 +44,9 @@ string: &amp;lsquo;or&#39;6]!r,b
 include $_REQUEST[&#39;file&#39;];中使用了include,为什么路径这样写，是因为我们的参数是有/../../../../这样的路径，所以符合最后一段话如果定义了路径，就会忽略/前的字符串而去找/../../../../ffffllllaaaagggg这个文件，php中include的用法
 2.[GXYCTF2019]Ping Ping Ping 题目给了/?ip=后面应该是我们想要执行的语句。先ping一下:127.0.0.1;ls发现可以执行语句；
 试试payload1:cat flag.php发现空格被过滤了；
-####　空格过滤
+空格过滤
   ${IFS}替换 $IFS$1替换 ${IFS替换 %20替换 &amp;lt;和&amp;lt;&amp;gt;重定向符替换 %09替换   一个个地试，发现{}被过滤了，同时flag也被过滤了，这时去看看index.php发现源码出来了；
-/?ip= |\&amp;#39;|\&amp;#34;|\\|\(|\)|\[|\]|\{|\}/&amp;#34;, $ip, $match)){ echo preg_match(&amp;#34;/\&amp;amp;|\/|\?|\*|\&amp;lt;|[\x{00}-\x{20}]|\&amp;gt;|\&amp;#39;|\&amp;#34;|\\|\(|\)|\[|\]|\{|\}/&amp;#34;, $ip, $match); die(&amp;#34;fxck your symbol!&amp;#34;); } else if(preg_match(&amp;#34;/ /&amp;#34;, $ip)){ die(&amp;#34;fxck your space!&amp;#34;); } else if(preg_match(&amp;#34;/bash/&amp;#34;, $ip)){ die(&amp;#34;fxck your bash!&amp;#34;); } else if(preg_match(&amp;#34;/.</description>
+/?ip= |\&amp;#39;|\&amp;#34;|\\|\(|\)|\[|\]|\{|\}/&amp;#34;, $ip, $match)){ echo preg_match(&amp;#34;/\&amp;amp;|\/|\?|\*|\&amp;lt;|[\x{00}-\x{20}]|\&amp;gt;|\&amp;#39;|\&amp;#34;|\\|\(|\)|\[|\]|\{|\}/&amp;#34;, $ip, $match); die(&amp;#34;fxck your symbol!&amp;#34;); } else if(preg_match(&amp;#34;/ /&amp;#34;, $ip)){ die(&amp;#34;fxck your space!&amp;#34;); } else if(preg_match(&amp;#34;/bash/&amp;#34;, $ip)){ die(&amp;#34;fxck your bash!&amp;#34;); } else if(preg_match(&amp;#34;/.*f.*l.*a.*g.*/&amp;#34;, $ip)){ die(&amp;#34;fxck your flag!</description>
     </item>
     
   </channel>

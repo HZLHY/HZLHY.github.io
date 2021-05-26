@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-  <title>BUUCTF_WEB</title>
+  <title>Abouts</title>
   <meta name="author" content="" />
   <meta name="description"
         content=""/>
@@ -15,30 +15,30 @@
   <meta name="generator" content="Hugo 0.78.2" />
 
   
-  <meta itemprop="name" content="BUUCTF_WEB"/>
+  <meta itemprop="name" content="Abouts"/>
   <meta itemprop="description"
         content=""/>
   <meta itemprop="image"
         content=""/>
 
   
-  <meta property="og:title" content="BUUCTF_WEB"/>
+  <meta property="og:title" content="Abouts"/>
   <meta property="og:type"
         content="website"/>
-  <meta property="og:url" content="https://hzlhy.github.io/tags/buuctf_web/"/>
+  <meta property="og:url" content="https://hzlhy.github.io/about/"/>
   <meta property="og:image"
         content=""/>
   <meta property="og:description"
         content=""/>
   <meta property="og:site_name" content="LHY&#39;s blogs"/>
-  <meta property="article:section" content="tags"/>
+  <meta property="article:section" content="about"/>
 
   
   
   <meta name="twitter:card" content="summary"/>
   <meta name="twitter:site"
         content=""/>
-  <meta name="twitter:title" content="BUUCTF_WEB"/>
+  <meta name="twitter:title" content="Abouts"/>
   <meta name="twitter:description"
         content=""/>
   <meta name="twitter:creator"
@@ -47,7 +47,7 @@
         content=""/>
 
   
-    <link rel="alternate" type="application/rss+xml" href="https://hzlhy.github.io/tags/buuctf_web/index.xml" title="LHY's blogs" />
+    <link rel="alternate" type="application/rss+xml" href="https://hzlhy.github.io/about/index.xml" title="LHY's blogs" />
 
   
   <link rel="stylesheet" type="text/css" href="/css/capsule.min.css"/>
@@ -88,7 +88,7 @@
       <div class="navbar-end">
       <a href="/about/"
          class="navbar-item
-                ">Abouts</a>
+                is-active">Abouts</a>
       <a href="/ctf/"
          class="navbar-item
                 ">CTFs</a>
@@ -103,59 +103,19 @@
 
       
       <div class="container" style="min-height:56vh">
-        <h1 class="title">Tag: BUUCTF_WEB</h1>
+        <h1 class="title">Section: Abouts</h1>
           <article class="media">
   <div class="media-content">
 
-    <p class="title is-4"><a href="https://hzlhy.github.io/ctf/buuctf_web_part1/">BUUCTF_WEB_part1</a></p>
+    <p class="title is-4"><a href="https://hzlhy.github.io/about/about/">About</a></p>
     <p class="subtitle is-6 mb-2">
       <span class="icon is-small"><i class="far fa-calendar-alt"></i></span>
       <span class="mr-2">Mar 26, 2021</span>
       <span class="icon is-small"><i class="far fa-clock"></i></span>
-      <span>1 min.</span>
+      <span>0 min.</span>
     </p>
 
-    <div class="content">1.[BJDCTF2020]Easy MD5 0x0 一打开发现是一个查询页面，按F12，看到响应头Hint: select * from 'admin' where password=md5($pass,true)初步以为是sql注入，试了一下（因为太菜+懒，也没怎么试就去找wp了……）；发现md5($pass,true)是一个知识点来的，可以参考这篇大佬的文章：大佬文章
-语法：
-md5(string,raw)
-   参数 描述     string 必需。需要计算的字符串。   raw 可选。1.默认不写为FALSE。32位16进制的字符串；2.TRUE。16位原始二进制格式的字符串。     ；content: ffifdyop
-hex: 276f722736c95d99e921722cf9ed621c
-raw: &lsquo;or'6\xc9]\x99\xe9!r,\xf9\xedb\x1c
-string: &lsquo;or'6]!r,b
- 注意：当raw为true时，这里所说的原始二进制并不是普通的二进制0，1，而是像上面表里raw那样的；
-（部分字符会乱码）
-题目中 ''or'6�]��!r,��b'会返回true，是因为在MySQL里面，在用作布尔型判断时，以1开头的字符串会被当做整型数。要注意的是这种情况是必须要有单引号括起来的，如password=‘xxx’ or ‘1xxxxxxxxx’，不只是1开头，只要是数字开头都可以。
-0x1 回到题目，照上面所说的，输入 ffifdyop提交查询出现一个新的页面，查看源码
-&lt;!-- $a = $GET[&#39;a&#39;]; $b = $_GET[&#39;b&#39;]; if($a != $b &amp;&amp; md5($a) == md5($b)){ // wow, glzjin wants a girl friend. --&gt; ==老朋友了，同时要使这两个的md5相等，这里抄了别人的wp，有两种方法：</div>
-
-  </div>
-</article>
-
-          <article class="media">
-  <div class="media-content">
-
-    <p class="title is-4"><a href="https://hzlhy.github.io/ctf/buuctf_web_part0/">BUUCTF_WEB_part0</a></p>
-    <p class="subtitle is-6 mb-2">
-      <span class="icon is-small"><i class="far fa-calendar-alt"></i></span>
-      <span class="mr-2">Mar 25, 2021</span>
-      <span class="icon is-small"><i class="far fa-clock"></i></span>
-      <span>2 min.</span>
-    </p>
-
-    <div class="content">1.[HCTF]BUUCTF_warmup 查看源码发现source.php，访问发现是代码审计
-1.PHP mb_substr()函数：
-&lt;?php echo mb_substr(&quot;菜鸟教程&quot;, 0, 2); // 输出：菜鸟 ?&gt;
-返回字符串的一部分
-2.PHP mb_strpos()
-查找字符串在另一个字符串中首次出现的位置
-3.PHP $_REQUEST是用于收集HTML表单提交的数据，PHP $_REQUEST属于PHP的超级全局变量
-4.payload:include source.php(或hint.php)?/../../../../ffffllllaaaagggg
-include $_REQUEST['file'];中使用了include,为什么路径这样写，是因为我们的参数是有/../../../../这样的路径，所以符合最后一段话如果定义了路径，就会忽略/前的字符串而去找/../../../../ffffllllaaaagggg这个文件，php中include的用法
-2.[GXYCTF2019]Ping Ping Ping 题目给了/?ip=后面应该是我们想要执行的语句。先ping一下:127.0.0.1;ls发现可以执行语句；
-试试payload1:cat flag.php发现空格被过滤了；
-空格过滤
-  ${IFS}替换 $IFS$1替换 ${IFS替换 %20替换 &lt;和&lt;&gt;重定向符替换 %09替换   一个个地试，发现{}被过滤了，同时flag也被过滤了，这时去看看index.php发现源码出来了；
-/?ip= |\&#39;|\&#34;|\\|\(|\)|\[|\]|\{|\}/&#34;, $ip, $match)){ echo preg_match(&#34;/\&amp;|\/|\?|\*|\&lt;|[\x{00}-\x{20}]|\&gt;|\&#39;|\&#34;|\\|\(|\)|\[|\]|\{|\}/&#34;, $ip, $match); die(&#34;fxck your symbol!&#34;); } else if(preg_match(&#34;/ /&#34;, $ip)){ die(&#34;fxck your space!&#34;); } else if(preg_match(&#34;/bash/&#34;, $ip)){ die(&#34;fxck your bash!&#34;); } else if(preg_match(&#34;/.*f.*l.*a.*g.*/&#34;, $ip)){ die(&#34;fxck your flag!</div>
+    <div class="content"></div>
 
   </div>
 </article>
@@ -178,7 +138,7 @@ include $_REQUEST['file'];中使用了include,为什么路径这样写，是因�
 
   <ul class="pagination-list">
 
-    <li><a href="/tags/buuctf_web/" class="pagination-link is-current">
+    <li><a href="/about/" class="pagination-link is-current">
       1
     </a></li>
 
@@ -230,7 +190,7 @@ include $_REQUEST['file'];中使用了include,为什么路径这样写，是因�
           
 
           <a class="button"
-             href="/tags/buuctf_web/index.xml">
+             href="/about/index.xml">
             <span class="icon"><i class="fas fa-rss"></i></span>
           </a>
 

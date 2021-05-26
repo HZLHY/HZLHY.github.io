@@ -3,12 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://hzlhy.github.io/about/about/</loc>
+    <lastmod>2021-03-26T19:52:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hzlhy.github.io/about/</loc>
+    <lastmod>2021-03-26T19:52:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hzlhy.github.io/</loc>
+    <lastmod>2021-03-26T19:52:27+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://hzlhy.github.io/categories/</loc>
     <lastmod>2021-03-26T15:32:48+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hzlhy.github.io/post/hugo_use/</loc>
+    <loc>https://hzlhy.github.io/ctf/</loc>
+    <lastmod>2021-03-26T15:32:48+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://hzlhy.github.io/ctf/hugo_use/</loc>
     <lastmod>2021-03-26T15:32:48+08:00</lastmod>
   </url>
   
@@ -18,17 +38,7 @@
   </url>
   
   <url>
-    <loc>https://hzlhy.github.io/</loc>
-    <lastmod>2021-03-26T15:32:48+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://hzlhy.github.io/categories/other/</loc>
-    <lastmod>2021-03-26T15:32:48+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://hzlhy.github.io/post/</loc>
     <lastmod>2021-03-26T15:32:48+08:00</lastmod>
   </url>
   
@@ -43,7 +53,7 @@
   </url>
   
   <url>
-    <loc>https://hzlhy.github.io/post/buuctf_web_part1/</loc>
+    <loc>https://hzlhy.github.io/ctf/buuctf_web_part1/</loc>
     <lastmod>2021-03-26T15:32:23+08:00</lastmod>
   </url>
   
@@ -53,7 +63,7 @@
   </url>
   
   <url>
-    <loc>https://hzlhy.github.io/post/buuctf_web_part0/</loc>
+    <loc>https://hzlhy.github.io/ctf/buuctf_web_part0/</loc>
     <lastmod>2021-03-25T15:04:29+08:00</lastmod>
   </url>
   
@@ -63,12 +73,12 @@
   </url>
   
   <url>
-    <loc>https://hzlhy.github.io/post/ctfshow_webrm361_372_ssti/</loc>
+    <loc>https://hzlhy.github.io/ctf/ctfshow_webrm361_372_ssti/</loc>
     <lastmod>2021-03-25T15:03:34+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hzlhy.github.io/post/ctfshow_webrm29_124/</loc>
+    <loc>https://hzlhy.github.io/ctf/ctfshow_webrm29_124/</loc>
     <lastmod>2021-03-25T15:03:09+08:00</lastmod>
   </url>
   

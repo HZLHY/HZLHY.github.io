@@ -6,13 +6,22 @@
     <description>Recent content on LHY&#39;s blogs</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 26 Mar 2021 15:32:48 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 26 Mar 2021 19:52:27 +0800</lastBuildDate><atom:link href="https://hzlhy.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://hzlhy.github.io/about/about/</link>
+      <pubDate>Fri, 26 Mar 2021 19:52:27 +0800</pubDate>
+      
+      <guid>https://hzlhy.github.io/about/about/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Hugo_use</title>
-      <link>https://hzlhy.github.io/post/hugo_use/</link>
+      <link>https://hzlhy.github.io/ctf/hugo_use/</link>
       <pubDate>Fri, 26 Mar 2021 15:32:48 +0800</pubDate>
       
-      <guid>https://hzlhy.github.io/post/hugo_use/</guid>
+      <guid>https://hzlhy.github.io/ctf/hugo_use/</guid>
       <description>hugo使用方法（初步） 0x0 创建站点 使用 hugo new site &amp;quot;文件夹名字&amp;quot;，如 hugo new site blogs 就会创建一个名为blogs的文件夹，包含archetypes、content等文件夹。
 0x1 创建文章 1.使用 hugo new xxx.md 创建一个名为 xxx.md 的文件，这样会直接将该文件创建于content文件夹中； 使用 hugo new post/xxx.md 会在 content 中的post文件夹中创建 xxx.md 文件。（注：在编辑文章时一定要把draft: true ——&amp;gt;draft: false,这样在生成时才会把文章生成到post文件夹中） 2.在完成创建后，运行 hugo 命令会生成相应的文件到public文件夹中；运行 hugo server 命令可以在本地 localhost:1313 查看变化（调试）或者（hugo server -t capsule -D）。 3.完成修改后需要上传到GitHub仓库，使用GitHub desktop上传文件即可。
 0x2 标签与目录，导航栏 1.由于更换了主题，标签与目录都是采用数组的方法才行；
@@ -22,10 +31,10 @@
     
     <item>
       <title>BUUCTF_WEB_part1</title>
-      <link>https://hzlhy.github.io/post/buuctf_web_part1/</link>
+      <link>https://hzlhy.github.io/ctf/buuctf_web_part1/</link>
       <pubDate>Fri, 26 Mar 2021 15:32:23 +0800</pubDate>
       
-      <guid>https://hzlhy.github.io/post/buuctf_web_part1/</guid>
+      <guid>https://hzlhy.github.io/ctf/buuctf_web_part1/</guid>
       <description>1.[BJDCTF2020]Easy MD5 0x0 一打开发现是一个查询页面，按F12，看到响应头Hint: select * from &#39;admin&#39; where password=md5($pass,true)初步以为是sql注入，试了一下（因为太菜+懒，也没怎么试就去找wp了……）；发现md5($pass,true)是一个知识点来的，可以参考这篇大佬的文章：大佬文章
 语法：
 md5(string,raw)
@@ -42,10 +51,10 @@ string: &amp;lsquo;or&#39;6]!r,b
     
     <item>
       <title>BUUCTF_WEB_part0</title>
-      <link>https://hzlhy.github.io/post/buuctf_web_part0/</link>
+      <link>https://hzlhy.github.io/ctf/buuctf_web_part0/</link>
       <pubDate>Thu, 25 Mar 2021 15:04:29 +0800</pubDate>
       
-      <guid>https://hzlhy.github.io/post/buuctf_web_part0/</guid>
+      <guid>https://hzlhy.github.io/ctf/buuctf_web_part0/</guid>
       <description>1.[HCTF]BUUCTF_warmup 查看源码发现source.php，访问发现是代码审计
 1.PHP mb_substr()函数：
 &amp;lt;?php echo mb_substr(&amp;quot;菜鸟教程&amp;quot;, 0, 2); // 输出：菜鸟 ?&amp;gt;
@@ -57,17 +66,17 @@ string: &amp;lsquo;or&#39;6]!r,b
 include $_REQUEST[&#39;file&#39;];中使用了include,为什么路径这样写，是因为我们的参数是有/../../../../这样的路径，所以符合最后一段话如果定义了路径，就会忽略/前的字符串而去找/../../../../ffffllllaaaagggg这个文件，php中include的用法
 2.[GXYCTF2019]Ping Ping Ping 题目给了/?ip=后面应该是我们想要执行的语句。先ping一下:127.0.0.1;ls发现可以执行语句；
 试试payload1:cat flag.php发现空格被过滤了；
-####　空格过滤
+空格过滤
   ${IFS}替换 $IFS$1替换 ${IFS替换 %20替换 &amp;lt;和&amp;lt;&amp;gt;重定向符替换 %09替换   一个个地试，发现{}被过滤了，同时flag也被过滤了，这时去看看index.php发现源码出来了；
-/?ip= |\&amp;#39;|\&amp;#34;|\\|\(|\)|\[|\]|\{|\}/&amp;#34;, $ip, $match)){ echo preg_match(&amp;#34;/\&amp;amp;|\/|\?|\*|\&amp;lt;|[\x{00}-\x{20}]|\&amp;gt;|\&amp;#39;|\&amp;#34;|\\|\(|\)|\[|\]|\{|\}/&amp;#34;, $ip, $match); die(&amp;#34;fxck your symbol!&amp;#34;); } else if(preg_match(&amp;#34;/ /&amp;#34;, $ip)){ die(&amp;#34;fxck your space!&amp;#34;); } else if(preg_match(&amp;#34;/bash/&amp;#34;, $ip)){ die(&amp;#34;fxck your bash!&amp;#34;); } else if(preg_match(&amp;#34;/.</description>
+/?ip= |\&amp;#39;|\&amp;#34;|\\|\(|\)|\[|\]|\{|\}/&amp;#34;, $ip, $match)){ echo preg_match(&amp;#34;/\&amp;amp;|\/|\?|\*|\&amp;lt;|[\x{00}-\x{20}]|\&amp;gt;|\&amp;#39;|\&amp;#34;|\\|\(|\)|\[|\]|\{|\}/&amp;#34;, $ip, $match); die(&amp;#34;fxck your symbol!&amp;#34;); } else if(preg_match(&amp;#34;/ /&amp;#34;, $ip)){ die(&amp;#34;fxck your space!&amp;#34;); } else if(preg_match(&amp;#34;/bash/&amp;#34;, $ip)){ die(&amp;#34;fxck your bash!&amp;#34;); } else if(preg_match(&amp;#34;/.*f.*l.*a.*g.*/&amp;#34;, $ip)){ die(&amp;#34;fxck your flag!</description>
     </item>
     
     <item>
       <title>CTFshow_WEBrm361_372_SSTI</title>
-      <link>https://hzlhy.github.io/post/ctfshow_webrm361_372_ssti/</link>
+      <link>https://hzlhy.github.io/ctf/ctfshow_webrm361_372_ssti/</link>
       <pubDate>Thu, 25 Mar 2021 15:03:34 +0800</pubDate>
       
-      <guid>https://hzlhy.github.io/post/ctfshow_webrm361_372_ssti/</guid>
+      <guid>https://hzlhy.github.io/ctf/ctfshow_webrm361_372_ssti/</guid>
       <description>ctfshow web入门SSTI 常见的继承关系的方法有以下三种：
 1.__base__：对象的一个基类，一般情况下是object
 2.__mro__：获取对象的基类，只是这时会显示出整个继承链的关系，是一个列表，object
@@ -87,10 +96,10 @@ include $_REQUEST[&#39;file&#39;];中使用了include,为什么路径这样写�
     
     <item>
       <title>CTFshow_WEBrm29_124</title>
-      <link>https://hzlhy.github.io/post/ctfshow_webrm29_124/</link>
+      <link>https://hzlhy.github.io/ctf/ctfshow_webrm29_124/</link>
       <pubDate>Thu, 25 Mar 2021 15:03:09 +0800</pubDate>
       
-      <guid>https://hzlhy.github.io/post/ctfshow_webrm29_124/</guid>
+      <guid>https://hzlhy.github.io/ctf/ctfshow_webrm29_124/</guid>
       <description>ctfshow web 入门命令执行 web29 &amp;lt;?php error_reporting(0); if(isset($_GET[&amp;#39;c&amp;#39;])){ $c = $_GET[&amp;#39;c&amp;#39;]; if(!preg_match(&amp;#34;/flag/i&amp;#34;, $c)){ eval($c); } }else{ highlight_file(__FILE__); } 知识点：通配符； 看到有eval()执行函数 过滤了flag ，可以使用通配符进行绕过。所以payload为：c=system(&#39;cat f*&#39;);返回的flag进行了隐藏，右键查看源码即可。 也可以通过文件包含来解决，payload： 先传入?c=echo &amp;quot;lhy&amp;quot;;?&amp;gt;ctfshow &amp;lt;?php system(&#39;ls&#39;);看到有flag.php文件（前面需要echo &amp;ldquo;lhy&amp;rdquo;;?&amp;gt;是因为传入c的时候表示一段代码的开始，?&amp;gt;结束后开始执行后面的代码），接下来的为?c=echo &amp;quot;lhy&amp;quot;; ?&amp;gt;ctfshow &amp;lt;?php include($_GET[&#39;url&#39;]);&amp;amp;url=php://filter/read=convert.base64-encode/resource=flag.php 补充：对于linux cat 和ca&#39;&amp;rsquo;t ca\t ca&amp;quot;&amp;ldquo;t效果是相同的，这样可以绕过字符的限制，如c=system(&#39;ca\t fla\g.php&#39;);
 web30 &amp;lt;?php error_reporting(0); if(isset($_GET[&amp;#39;c&amp;#39;])){ $c = $_GET[&amp;#39;c&amp;#39;]; if(!preg_match(&amp;#34;/flag|system|php/i&amp;#34;, $c)){ eval($c); } }else{ highlight_file(__FILE__); } 知识点：反引号执行系统命令； 与29相比增加了对命令函数的过滤，命令执行函数有很多，如 system()
 passthru()
